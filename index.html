@@ -205,6 +205,64 @@ body{margin:0;font-family:var(--serif);font-weight:400;font-size:19px;line-heigh
 /* End mark */
 .endmark{display:inline-block;width:.6em;height:.6em;background:var(--vermilion);margin-left:.3em;vertical-align:.05em;}
 
+/* ── DIAGRAMS ─────────────────────────────────── */
+.diagram{margin:3rem 0;border:1px solid var(--rule);background:var(--paper-warm);}
+.diagram__head{padding:.9rem 1.2rem;border-bottom:1px solid var(--rule);display:flex;justify-content:space-between;align-items:baseline;}
+.diagram__title{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--vermilion);}
+.diagram__sub{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;color:var(--ink-fade);}
+.diagram__note{padding:.7rem 1.2rem;border-top:1px solid var(--rule);font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--ink-fade);}
+
+/* 2×2 grid (4Ps) */
+.diagram__grid--2x2{display:grid;grid-template-columns:1fr 1fr;}
+.diagram__cell{padding:1.1rem 1.2rem;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);}
+.diagram__cell:nth-child(2n){border-right:none;}
+.diagram__cell:nth-child(3),.diagram__cell:nth-child(4){border-bottom:none;}
+.diagram__num{font-family:var(--mono);font-size:9px;letter-spacing:.18em;color:var(--vermilion);margin-bottom:.35rem;}
+.diagram__cell-head{font-family:var(--serif);font-size:1.15rem;font-weight:500;color:var(--ink);letter-spacing:-.01em;margin-bottom:.1rem;}
+.diagram__cell-verb{font-family:var(--mono);font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem;}
+.diagram__cell-body{font-family:var(--sans);font-size:.82rem;line-height:1.5;color:var(--ink-soft);}
+
+/* Flow diagram (LINE bot, Phuket) */
+.diagram__flow{display:flex;align-items:stretch;overflow-x:auto;}
+.diagram__flow-step{flex:1;min-width:5.5rem;padding:.9rem .8rem;border-right:1px solid var(--rule);display:flex;flex-direction:column;gap:.3rem;}
+.diagram__flow-step:last-child{border-right:none;}
+.diagram__flow-icon{font-family:var(--mono);font-size:1.2rem;line-height:1;}
+.diagram__flow-label{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--vermilion);}
+.diagram__flow-desc{font-family:var(--sans);font-size:.75rem;line-height:1.4;color:var(--ink-soft);}
+.diagram__flow-arrow{display:flex;align-items:center;padding:0 .25rem;color:var(--rule);font-size:1rem;align-self:center;flex-shrink:0;}
+
+/* Tier table (Rayong) */
+.diagram__tiers{width:100%;border-collapse:collapse;}
+.diagram__tiers th{font-family:var(--mono);font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-fade);padding:.6rem 1rem;border-bottom:1px solid var(--rule);text-align:left;font-weight:400;}
+.diagram__tiers td{font-family:var(--sans);font-size:.82rem;padding:.75rem 1rem;border-bottom:1px solid var(--rule);vertical-align:top;line-height:1.4;color:var(--ink-soft);}
+.diagram__tiers tr:last-child td{border-bottom:none;}
+.diagram__tiers .tier-name{font-family:var(--serif);font-weight:500;color:var(--ink);font-size:.9rem;}
+.diagram__tiers .tier-0{color:var(--ink-fade);}
+.diagram__tiers .tier-1{color:var(--gold);}
+.diagram__tiers .tier-2{color:var(--vermilion);}
+.diagram__tiers .tier-3{color:var(--vermilion-d);font-weight:600;}
+
+/* Proxy chain (aerosol) */
+.diagram__chain{display:flex;align-items:center;flex-wrap:wrap;padding:.8rem 1.2rem;gap:.5rem;}
+.diagram__chain-node{border:1px solid var(--rule);padding:.55rem .9rem;display:flex;flex-direction:column;gap:.2rem;flex:1;min-width:7rem;}
+.diagram__chain-tag{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--vermilion);}
+.diagram__chain-text{font-family:var(--sans);font-size:.78rem;line-height:1.35;color:var(--ink-soft);}
+.diagram__chain-arrow{color:var(--rule);font-size:1.1rem;flex-shrink:0;}
+
+@media(max-width:720px){
+  .diagram__grid--2x2{grid-template-columns:1fr;}
+  .diagram__cell:nth-child(2n){border-right:1px solid var(--rule);}
+  .diagram__cell:nth-child(4){border-bottom:none;}
+  .diagram__cell:nth-child(3){border-bottom:1px solid var(--rule);}
+  .diagram__cell:nth-child(2){border-right:none;}
+  .diagram__flow{flex-direction:column;}
+  .diagram__flow-step{border-right:none;border-bottom:1px solid var(--rule);}
+  .diagram__flow-step:last-child{border-bottom:none;}
+  .diagram__flow-arrow{display:none;}
+  .diagram__chain{flex-direction:column;}
+  .diagram__chain-node{min-width:auto;}
+}
+
 /* Mobile */
 @media(max-width:720px){
   body{font-size:17.5px;}
@@ -282,7 +340,7 @@ body{margin:0;font-family:var(--serif);font-weight:400;font-size:19px;line-heigh
 
 <!-- COVER -->
 <section id="cover" class="cover" data-screen-label="Cover">
-  <div class="cover__photo" style="background-image:url('assets/photos/portrait-a.jpg');background-position:center 20%"></div>
+  <div class="cover__photo" style="background-image:url('assets/photos/photo-cover.jpg');background-position:center center"></div>
   <div class="cover__overlay"></div>
   <div class="cover__rule"></div>
   <div class="cover__rule bottom"></div>
@@ -369,7 +427,7 @@ body{margin:0;font-family:var(--serif);font-weight:400;font-size:19px;line-heigh
 
 <!-- PART I DIVIDER -->
 <section id="part-1" class="divider" data-screen-label="Part I">
-  <div class="divider__photo" style="background-image:url('assets/photos/portrait-b.jpg');background-position:center top"></div>
+  <div class="divider__photo" style="background-image:url('assets/photos/photo-part1.jpg');background-position:center 40%"></div>
   <div class="divider__content">
     <p class="divider__part">Part One</p>
     <h2 class="divider__title">The <em>Manifesto</em></h2>
@@ -464,6 +522,41 @@ body{margin:0;font-family:var(--serif);font-weight:400;font-size:19px;line-heigh
   <div class="chapter__body">
     <p class="dropcap">A framework should earn its keep. Most of the frameworks that get put on slides do not — they are mnemonics in search of a memory. The Four Ps survive because they catch, in order, the four ways every smart-city project I have ever seen tends to fail. If a project is failing, it is failing on at least one of these. Usually two.</p>
     <p>The Ps are: Purpose, Practical, Proof, and People. Or, if you prefer the verb forms: design, data, optimize, incentivize.</p>
+
+    <div class="diagram" aria-label="The Four Ps framework">
+      <div class="diagram__head">
+        <span class="diagram__title">The Four Ps</span>
+        <span class="diagram__sub">Failure order: P1 → P2 → P3 → P4</span>
+      </div>
+      <div class="diagram__grid--2x2">
+        <div class="diagram__cell">
+          <div class="diagram__num">P 1</div>
+          <div class="diagram__cell-head">Purpose</div>
+          <div class="diagram__cell-verb">Design</div>
+          <div class="diagram__cell-body">A measurable outcome committed to before anything is built. Not a feeling — a verifiable success criterion.</div>
+        </div>
+        <div class="diagram__cell">
+          <div class="diagram__num">P 2</div>
+          <div class="diagram__cell-head">Practical</div>
+          <div class="diagram__cell-verb">Data</div>
+          <div class="diagram__cell-body">Digitalization that changes a physical decision within 48 hours. Name the decision — or the data is decoration.</div>
+        </div>
+        <div class="diagram__cell">
+          <div class="diagram__num">P 3</div>
+          <div class="diagram__cell-head">Proof</div>
+          <div class="diagram__cell-verb">Optimize</div>
+          <div class="diagram__cell-body">Every belief is a hypothesis until the system confirms it. Ship first. Measure. Then — only then — improve.</div>
+        </div>
+        <div class="diagram__cell">
+          <div class="diagram__num">P 4</div>
+          <div class="diagram__cell-head">People</div>
+          <div class="diagram__cell-verb">Incentivize</div>
+          <div class="diagram__cell-body">Align self-interest with the public good. Reward the behavior you want and the behavior shows up — without a memo.</div>
+        </div>
+      </div>
+      <div class="diagram__note">Walk the list from the top. The first P that breaks is the one to fix.</div>
+    </div>
+
     <h3>Purpose: design with a real outcome</h3>
     <p>Purpose is different from intention. Intention is a feeling. Purpose is a measurable outcome you have committed to.</p>
     <p>Intention says: we want our students to be more engaged. Purpose says: we are going to use AR and VR to teach biology, and we will measure engagement, not grades, and the success criterion is plus forty percent on the engagement metric within one school year.</p>
@@ -550,7 +643,7 @@ body{margin:0;font-family:var(--serif);font-weight:400;font-size:19px;line-heigh
 
 <!-- PART II DIVIDER -->
 <section id="part-2" class="divider" data-screen-label="Part II">
-  <div class="divider__photo" style="background-image:url('assets/photos/portrait-c.jpg');background-position:center center"></div>
+  <div class="divider__photo" style="background-image:url('assets/photos/photo-part2.jpg');background-position:center 60%"></div>
   <div class="divider__content">
     <p class="divider__part">Part Two</p>
     <h2 class="divider__title">Field <em>Notes</em></h2>
@@ -581,6 +674,45 @@ body{margin:0;font-family:var(--serif);font-weight:400;font-size:19px;line-heigh
       <div><div class="stat__num">40K+</div><div class="stat__lab">Tickets resolved</div></div>
       <div><div class="stat__num">120K+</div><div class="stat__lab">Active subscribers</div></div>
     </div>
+    <div class="diagram" aria-label="Nakhon citizen reporting system flow">
+      <div class="diagram__head">
+        <span class="diagram__title">How the LINE Bot Works</span>
+        <span class="diagram__sub">Nakhon Si Thammarat · 184h → 42h</span>
+      </div>
+      <div class="diagram__flow">
+        <div class="diagram__flow-step">
+          <div class="diagram__flow-icon">📱</div>
+          <div class="diagram__flow-label">Citizen</div>
+          <div class="diagram__flow-desc">Photos the problem. Sends it to the LINE chatbot — no new app needed.</div>
+        </div>
+        <div class="diagram__flow-arrow">→</div>
+        <div class="diagram__flow-step">
+          <div class="diagram__flow-icon">🤖</div>
+          <div class="diagram__flow-label">AI Triage</div>
+          <div class="diagram__flow-desc">Extracts GPS, classifies category, opens a ticket. Fractions of a cent per ticket.</div>
+        </div>
+        <div class="diagram__flow-arrow">→</div>
+        <div class="diagram__flow-step">
+          <div class="diagram__flow-icon">📋</div>
+          <div class="diagram__flow-label">Dispatch</div>
+          <div class="diagram__flow-desc">Ticket routes to the right department. Staff member sees it on their queue.</div>
+        </div>
+        <div class="diagram__flow-arrow">→</div>
+        <div class="diagram__flow-step">
+          <div class="diagram__flow-icon">✅</div>
+          <div class="diagram__flow-label">Fix</div>
+          <div class="diagram__flow-desc">Work done. Citizen gets a ping. Asked to rate 1–5 stars.</div>
+        </div>
+        <div class="diagram__flow-arrow">→</div>
+        <div class="diagram__flow-step">
+          <div class="diagram__flow-icon">⭐</div>
+          <div class="diagram__flow-label">Stars → Rank</div>
+          <div class="diagram__flow-desc">Stars accumulate by staff member. Top performers get promoted — automatically, no committee.</div>
+        </div>
+      </div>
+      <div class="diagram__note">Cost of build: free tier + fractions of a cent per ticket. Dominant cost: one civil servant, half-time, six months.</div>
+    </div>
+
     <h3>The baseline</h3>
     <p>The baseline response time, when we measured it, was one hundred and eighty-four hours. Just under eight days. That was the median time between a citizen reporting a problem and the problem being marked resolved. The reporting channels were a phone line that was rarely answered, a walk-in counter at city hall, and a Facebook page that was monitored erratically.</p>
     <h3>The build</h3>
@@ -612,6 +744,35 @@ body{margin:0;font-family:var(--serif);font-weight:400;font-size:19px;line-heigh
     <h3>Forty-five minutes</h3>
     <p>I was in a coffee shop. I had a second-hand laptop. I pulled the public flight-arrival data for Phuket International. I pulled the GPS feed for the existing minibus operators. I wrote a small simulation that showed, on the left, planes landing at the airport, and on the right, buses leaving the airport. The gap between the two — passengers landing, buses available — was the metric I was after.</p>
     <p>It took about forty-five minutes. It was not pretty. It was clearly a prototype. I sent a screen recording to the relevant person in Phuket's transit department. Within a day, three things happened. First, the prototype was forwarded to the deputy governor. Second, a meeting was scheduled. Third, the meeting was not about whether to build the system. It was about how fast.</p>
+    <div class="diagram" aria-label="Phuket smart bus demand gap diagram">
+      <div class="diagram__head">
+        <span class="diagram__title">The Supply–Demand Gap</span>
+        <span class="diagram__sub">Phuket smart bus · built in 45 minutes</span>
+      </div>
+      <div class="diagram__chain">
+        <div class="diagram__chain-node">
+          <span class="diagram__chain-tag">Input A</span>
+          <span class="diagram__chain-text">Flight arrivals data<br><em style="font-style:italic;font-size:.72rem">Public API — Phuket International</em></span>
+        </div>
+        <span class="diagram__chain-arrow">+</span>
+        <div class="diagram__chain-node">
+          <span class="diagram__chain-tag">Input B</span>
+          <span class="diagram__chain-text">Bus GPS positions<br><em style="font-style:italic;font-size:.72rem">Existing minibus operators</em></span>
+        </div>
+        <span class="diagram__chain-arrow">→</span>
+        <div class="diagram__chain-node" style="border-color:var(--vermilion)">
+          <span class="diagram__chain-tag" style="color:var(--vermilion)">Output</span>
+          <span class="diagram__chain-text" style="color:var(--ink)"><strong>Gap metric</strong><br>Passengers arriving vs. buses available — live, in minutes</span>
+        </div>
+        <span class="diagram__chain-arrow">→</span>
+        <div class="diagram__chain-node">
+          <span class="diagram__chain-tag">Action</span>
+          <span class="diagram__chain-text">Dispatch more buses to airport when gap widens. Reposition when it closes.</span>
+        </div>
+      </div>
+      <div class="diagram__note">The gap did the convincing. Everything else was built after the meeting.</div>
+    </div>
+
     <h3>What demand-aware means</h3>
     <p>The buses do not run on a fixed schedule. They run on a demand schedule. When flights are landing, more buses are dispatched to the airport. When the airport is quiet, the buses are repositioned to wherever the social-media chatter and the cellular data show concentrations of foot traffic.</p>
     <p>Phuket has reported a thirty-percent reduction in airport-area congestion since the system went live. I cannot independently verify the thirty percent. I can verify that the buses, when I have ridden them, are full.</p>
@@ -638,7 +799,44 @@ body{margin:0;font-family:var(--serif);font-weight:400;font-size:19px;line-heigh
     <p>We classified residents into four tiers: Normal, At-Risk, Disabled, and Bedridden. The classification was done partly by the existing public-health volunteer network, which had been visiting households for decades and had a working knowledge of who was who. AI was the tool that made their data legible.</p>
     <p>The volunteers had been writing in notebooks. We gave them a simple form, on a tablet, that mirrored the notebook. The structured data fed a classifier. The classifier suggested a tier. The volunteer could override. The override rate in year one was fifteen percent. By year two it was under five percent.</p>
     <h3>What the tier unlocked</h3>
-    <p>Normal: nothing automatic. At-Risk: free annual screenings and transport vouchers. Disabled: free assistive devices appropriate to the disability, including the eyeglasses we had been spraying randomly before. Bedridden: home telemedicine, monthly nurse visits, free incontinence supplies, caregiver respite.</p>
+    <div class="diagram" aria-label="Rayong four-tier healthcare system">
+      <div class="diagram__head">
+        <span class="diagram__title">Rayong Four-Tier Care System</span>
+        <span class="diagram__sub">Each tier unlocks a different benefit package</span>
+      </div>
+      <table class="diagram__tiers">
+        <thead>
+          <tr><th>Tier</th><th>Classification</th><th>Benefit Package</th><th>Key insight</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="tier-name tier-0">0 — Normal</span></td>
+            <td>No significant health risk identified</td>
+            <td>Health information, vaccination reminders, standard public-health touchpoints</td>
+            <td>Nothing automatic — resources preserved for higher tiers</td>
+          </tr>
+          <tr>
+            <td><span class="tier-name tier-1">1 — At-Risk</span></td>
+            <td>Elevated NCD risk factors flagged by volunteer</td>
+            <td>Free annual screenings, dietary counselling, transport vouchers to district hospital</td>
+            <td>Early catch; cheapest tier to treat long-term</td>
+          </tr>
+          <tr>
+            <td><span class="tier-name tier-2">2 — Disabled</span></td>
+            <td>Documented disability; confirmed by AI + override</td>
+            <td>Free assistive devices appropriate to disability — eyeglasses to the right household, not sprayed by ward</td>
+            <td>15–20% cost saving vs. previous blanket distribution</td>
+          </tr>
+          <tr>
+            <td><span class="tier-name tier-3">3 — Bedridden</span></td>
+            <td>Unable to attend clinic; confirmed home visit</td>
+            <td>Home telemedicine, monthly nurse visits, incontinence supplies, caregiver respite</td>
+            <td>Dedicated tablet per household fixed adoption; 0% → 60% in 6 months</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="diagram__note">AI suggested tier. Volunteer overrode ~15% in year one, ~5% by year two. Overrides became training data.</div>
+    </div>
     <p>The savings, in misdirected procurement, were between fifteen and twenty percent of the social-welfare line.</p>
     <h3>The harder problem</h3>
     <p>The harder problem in Rayong was not the classifier. It was the connectivity. Many of the bedridden tier lived in households where the smartphone belonged to a working-age adult who took it to work each day. Telemedicine on a phone that is not in the house is not telemedicine.</p>
@@ -687,6 +885,35 @@ body{margin:0;font-family:var(--serif);font-weight:400;font-size:19px;line-heigh
     <p>The right question — where is the violence concentrated? — was unanswerable to me. So I asked a wrong question that I could answer: where in the Middle East is there a lot of combustion right now?</p>
     <p>Combustion produces aerosols. Aerosols are tracked by NASA's MODIS satellites, by JAXA's Himawari, by ESA's Sentinel program. The aerosol layers are public. They are updated multiple times per day. Anyone can query them.</p>
     <p>I queried. The map lit up. Tehran, dim. The corridor between Israel and southern Lebanon, bright. Gaza, very bright. Industrial corridors near Bandar Abbas, bright in a different pattern, indicating ordinary heavy industry rather than war. Agricultural fires in Egypt, bright but dispersed.</p>
+    <div class="diagram" aria-label="Aerosol proxy chain">
+      <div class="diagram__head">
+        <span class="diagram__title">The Proxy Chain</span>
+        <span class="diagram__sub">Israel–Iran flare-up · one afternoon · one Claude subscription</span>
+      </div>
+      <div class="diagram__chain">
+        <div class="diagram__chain-node">
+          <span class="diagram__chain-tag">Question I couldn't ask</span>
+          <span class="diagram__chain-text">Where is the violence concentrated?<br><em style="font-style:italic;font-size:.72rem">Requires: analyst, ground truth, intelligence contract</em></span>
+        </div>
+        <span class="diagram__chain-arrow">↓</span>
+        <div class="diagram__chain-node">
+          <span class="diagram__chain-tag">Sideways question</span>
+          <span class="diagram__chain-text">Where is there a lot of combustion right now?<br><em style="font-style:italic;font-size:.72rem">Requires: NASA MODIS / JAXA Himawari — free, public, daily</em></span>
+        </div>
+        <span class="diagram__chain-arrow">↓</span>
+        <div class="diagram__chain-node" style="border-color:var(--vermilion)">
+          <span class="diagram__chain-tag">Proxy insight</span>
+          <span class="diagram__chain-text">Aerosol concentration map → combustion patterns → ~90% fidelity to conflict intensity</span>
+        </div>
+        <span class="diagram__chain-arrow">↓</span>
+        <div class="diagram__chain-node">
+          <span class="diagram__chain-tag">Decision made</span>
+          <span class="diagram__chain-text">Flight route recommendations for colleagues travelling through the Gulf. They came home.</span>
+        </div>
+      </div>
+      <div class="diagram__note">Total cost: one Claude subscription. Total time: one afternoon. This is the whole pattern in miniature.</div>
+    </div>
+
     <h3>What the map said</h3>
     <p>The map did not tell me where the violence was. It told me where things were burning, which is a different question. But the overlap, in the case of an active military conflict, is high enough that the map was, for travel-routing purposes, almost as good as the question I had originally wanted to ask. I overlaid flight paths. My colleagues took those routes. They came home.</p>
     <p>Total time invested: about one afternoon. Total cost: my Claude subscription. Total information value: enough to make a real travel-routing decision affecting several human beings.</p>
@@ -698,7 +925,7 @@ body{margin:0;font-family:var(--serif);font-weight:400;font-size:19px;line-heigh
 
 <!-- PART III DIVIDER -->
 <section id="part-3" class="divider" data-screen-label="Part III">
-  <div class="divider__photo" style="background-image:url('assets/photos/portrait-b.jpg');background-position:center bottom"></div>
+  <div class="divider__photo" style="background-image:url('assets/photos/photo-part3.jpg');background-position:center center"></div>
   <div class="divider__content">
     <p class="divider__part">Part Three</p>
     <h2 class="divider__title">The <em>Toolkit</em></h2>
