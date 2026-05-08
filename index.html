@@ -1,0 +1,967 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ninja Innovation — Non Arkara</title>
+<meta name="description" content="An ebook by Non Arkara, PhD. How a public servant replaces million-dollar platforms with people-centric AI.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..700;1,6..72,200..700&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Ninja Innovation — editorial ebook stylesheet */
+:root {
+  --paper:        #f3ede0;
+  --paper-warm:   #ece4d3;
+  --paper-deep:   #e1d6bf;
+  --ink:          #1a1612;
+  --ink-soft:     #3a342c;
+  --ink-fade:     #6e6558;
+  --rule:         #b8ad96;
+  --vermilion:    #b8392a;
+  --vermilion-d:  #8c2a1f;
+  --gold:         #a8843a;
+  --paper-dark:   #0f0d0a;
+  --serif:  "Newsreader","Newsreader Display",Charter,Georgia,"Times New Roman",serif;
+  --sans:   "IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,sans-serif;
+  --mono:   "IBM Plex Mono","JetBrains Mono",ui-monospace,Menlo,monospace;
+  --measure: 36rem;
+  --measure-wide: 52rem;
+  --gutter: 18rem;
+  --leading-body: 1.62;
+  --tracking-tight: -0.012em;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;scroll-padding-top:6rem;background:var(--paper);}
+body{margin:0;font-family:var(--serif);font-weight:400;font-size:19px;line-height:var(--leading-body);color:var(--ink);background:var(--paper);text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;font-variation-settings:"opsz" 16;font-feature-settings:"kern","liga","onum";}
+::selection{background:var(--vermilion);color:var(--paper);}
+
+/* Progress */
+.progress{position:fixed;top:0;left:0;width:100%;height:2px;background:transparent;z-index:90;pointer-events:none;}
+.progress__bar{height:100%;background:var(--vermilion);width:0%;transition:width .12s linear;}
+
+/* Topbar */
+.topbar{position:fixed;top:0;left:0;right:0;height:3.4rem;display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;z-index:80;background:linear-gradient(180deg,rgba(243,237,224,.96) 70%,rgba(243,237,224,0));backdrop-filter:blur(6px);pointer-events:none;}
+.topbar__brand{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-fade);pointer-events:auto;}
+.topbar__brand strong{color:var(--ink);font-weight:600;}
+.topbar__nav{display:flex;gap:1rem;align-items:center;pointer-events:auto;}
+.topbar__btn{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);background:transparent;border:none;cursor:pointer;padding:.4rem .6rem;}
+.topbar__btn:hover{color:var(--vermilion);}
+
+/* Drawer */
+.drawer{position:fixed;top:0;right:0;height:100vh;width:min(360px,88vw);background:var(--paper-warm);border-left:1px solid var(--rule);transform:translateX(100%);transition:transform .35s cubic-bezier(.4,.0,.2,1);z-index:95;display:flex;flex-direction:column;box-shadow:-20px 0 60px rgba(26,22,18,.08);}
+.drawer.open{transform:translateX(0);}
+.drawer__head{padding:1.6rem 1.8rem 1rem;border-bottom:1px solid var(--rule);display:flex;justify-content:space-between;align-items:baseline;}
+.drawer__title{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-fade);margin:0;}
+.drawer__close{font-family:var(--mono);font-size:14px;background:none;border:none;cursor:pointer;color:var(--ink-soft);}
+.drawer__list{list-style:none;padding:1rem 0;margin:0;overflow-y:auto;}
+.drawer__list li{margin:0;}
+.drawer__list a{display:flex;align-items:baseline;gap:.9rem;padding:.6rem 1.8rem;text-decoration:none;color:var(--ink-soft);font-family:var(--serif);font-size:17px;line-height:1.35;border-left:2px solid transparent;transition:color .15s,border-color .15s,background .15s;}
+.drawer__list a:hover{color:var(--vermilion);background:rgba(184,57,42,.04);}
+.drawer__list a.active{color:var(--vermilion);border-left-color:var(--vermilion);}
+.drawer__list .num{font-family:var(--mono);font-size:11px;color:var(--gold);letter-spacing:.08em;min-width:2.5rem;flex-shrink:0;}
+.drawer__list .part{padding:1.2rem 1.8rem .4rem;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.18em;color:var(--vermilion);}
+.scrim{position:fixed;inset:0;background:rgba(15,13,10,.35);opacity:0;pointer-events:none;transition:opacity .3s;z-index:92;}
+.scrim.show{opacity:1;pointer-events:auto;}
+
+/* Layout */
+.book{width:100%;overflow-x:hidden;}
+.spread{width:100%;padding:6rem 1.5rem;}
+.column{max-width:var(--measure);margin:0 auto;position:relative;}
+.column--wide{max-width:var(--measure-wide);}
+
+/* Cover */
+.cover{min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:space-between;padding:5rem 2.5rem 2.5rem;overflow:hidden;}
+.cover__photo{position:absolute;inset:0;background-size:cover;background-position:center 30%;z-index:0;}
+.cover__photo::after{content:'';position:absolute;inset:0;background:linear-gradient(160deg,rgba(15,13,10,.82) 0%,rgba(15,13,10,.65) 60%,rgba(15,13,10,.78) 100%);}
+.cover__overlay{position:absolute;inset:0;background:radial-gradient(ellipse at 30% 0%,rgba(184,57,42,.12),transparent 55%),radial-gradient(ellipse at 90% 100%,rgba(168,132,58,.10),transparent 60%);z-index:1;}
+.cover__rule{height:1px;background:rgba(243,237,224,.3);width:100%;position:absolute;top:4rem;left:0;z-index:2;}
+.cover__rule.bottom{top:auto;bottom:6rem;}
+.cover__meta{position:relative;z-index:3;display:flex;justify-content:space-between;align-items:baseline;font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:rgba(243,237,224,.55);padding-top:1rem;}
+.cover__meta strong{color:var(--vermilion);font-weight:600;}
+.cover__center{flex:1;display:flex;flex-direction:column;justify-content:center;margin:0 auto;width:100%;max-width:64rem;position:relative;z-index:3;}
+.cover__kicker{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--vermilion);margin-bottom:2rem;}
+.cover__title{font-family:var(--serif);font-weight:200;font-size:clamp(3.6rem,11vw,9rem);line-height:0.92;letter-spacing:-0.045em;color:var(--paper);margin:0;font-variation-settings:"opsz" 36;}
+.cover__title em{font-style:italic;font-weight:300;color:var(--vermilion);}
+.cover__sub{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(1.1rem,2.4vw,1.5rem);line-height:1.4;color:rgba(243,237,224,.72);margin:2rem 0 0;max-width:38rem;}
+.cover__byline{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:rgba(243,237,224,.6);margin-top:4rem;}
+.cover__byline span{color:var(--vermilion);}
+.cover__bottom{position:relative;z-index:3;display:flex;justify-content:space-between;align-items:end;padding-top:1rem;font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(243,237,224,.4);}
+.cover__hint{display:flex;align-items:center;gap:.6rem;color:rgba(243,237,224,.6);animation:nudge 2.4s ease-in-out infinite;}
+@keyframes nudge{0%,100%{transform:translateY(0);}50%{transform:translateY(4px);}}
+.cover__mark{position:absolute;right:2.5rem;top:50%;transform:translateY(-50%);width:clamp(140px,18vw,280px);height:clamp(140px,18vw,280px);pointer-events:none;opacity:.75;z-index:3;}
+
+/* Front matter */
+.front{padding:8rem 1.5rem;background:var(--paper);}
+.front-title{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--vermilion);margin-bottom:1.5rem;}
+.front h2{font-family:var(--serif);font-weight:300;font-size:clamp(2.2rem,5vw,3.4rem);line-height:1.05;letter-spacing:var(--tracking-tight);margin:0 0 2rem;}
+
+/* TOC */
+.toc{background:var(--paper-warm);padding:8rem 1.5rem;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);}
+.toc__list{list-style:none;padding:0;margin:2rem 0 0;border-top:1px solid var(--rule);}
+.toc__list li{border-bottom:1px solid var(--rule);}
+.toc__list a{display:grid;grid-template-columns:4rem 1fr auto;align-items:baseline;gap:1rem;padding:1.1rem .25rem;text-decoration:none;color:var(--ink);transition:color .15s,padding-left .2s;}
+.toc__list a:hover{color:var(--vermilion);padding-left:1rem;}
+.toc__list .num{font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--gold);}
+.toc__list .ttl{font-family:var(--serif);font-size:1.4rem;font-weight:400;letter-spacing:var(--tracking-tight);}
+.toc__list .ttl em{display:block;font-style:italic;font-weight:300;font-size:1rem;color:var(--ink-fade);margin-top:.15rem;}
+.toc__list .pg{font-family:var(--mono);font-size:11px;color:var(--ink-fade);letter-spacing:.08em;}
+.toc__part{padding:1.6rem 0 .6rem;font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--vermilion);border-bottom:none!important;}
+
+/* Chapter */
+.chapter{padding:7rem 1.5rem 6rem;position:relative;}
+.chapter__head{max-width:var(--measure);margin:0 auto 4rem;text-align:left;}
+.chapter__num{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--vermilion);margin-bottom:1.4rem;display:flex;align-items:center;gap:.8rem;}
+.chapter__num::after{content:"";flex:1;height:1px;background:var(--rule);max-width:6rem;}
+.chapter__title{font-family:var(--serif);font-weight:300;font-size:clamp(2.6rem,6vw,4.4rem);line-height:0.98;letter-spacing:-0.035em;margin:0 0 1.4rem;font-variation-settings:"opsz" 32;}
+.chapter__title em{font-style:italic;color:var(--vermilion);}
+.chapter__sub{font-family:var(--serif);font-style:italic;font-weight:300;font-size:1.2rem;line-height:1.4;color:var(--ink-fade);margin:0;}
+.chapter__body{max-width:var(--measure);margin:0 auto;position:relative;}
+.chapter__body p{margin:0 0 1.2rem;hyphens:auto;text-wrap:pretty;}
+.chapter__body p+p{text-indent:1.6em;margin-top:0;}
+.chapter__body h3{font-family:var(--serif);font-weight:400;font-size:1.35rem;letter-spacing:var(--tracking-tight);margin:2.6rem 0 1rem;color:var(--ink);}
+.chapter__body h3+p{text-indent:0;}
+.chapter__body em{font-style:italic;}
+.chapter__body strong{font-weight:600;}
+
+/* Photo caption in chapter */
+.chapter__photo{margin:3rem 0;position:relative;overflow:hidden;}
+.chapter__photo img{width:100%;display:block;aspect-ratio:16/9;object-fit:cover;}
+.chapter__photo figcaption{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-fade);padding:.6rem 0 0;}
+
+/* Drop cap */
+.dropcap::first-letter{font-family:var(--serif);font-weight:300;font-style:normal;float:left;font-size:5.4rem;line-height:0.85;margin:.35rem .55rem -.4rem 0;color:var(--vermilion);font-variation-settings:"opsz" 36;}
+
+/* Pull quote */
+.pull{margin:3rem 0;padding:1.4rem 0 1.4rem 1.6rem;border-left:3px solid var(--vermilion);font-family:var(--serif);font-style:italic;font-weight:300;font-size:1.7rem;line-height:1.25;letter-spacing:-0.012em;color:var(--ink);}
+.pull::before{content:"\201C";color:var(--vermilion);margin-right:.12em;}
+.pull::after{content:"\201D";color:var(--vermilion);margin-left:.04em;}
+.pull cite{display:block;font-style:normal;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-fade);margin-top:.8rem;}
+
+/* Section ornament */
+.orn{display:flex;justify-content:center;align-items:center;gap:.6rem;margin:3rem 0;color:var(--vermilion);}
+.orn::before,.orn::after{content:"";width:2.5rem;height:1px;background:var(--rule);}
+.orn span{font-size:14px;letter-spacing:.8em;}
+
+/* Sidenote */
+.sn-marker{font-family:var(--mono);font-size:.7em;vertical-align:super;color:var(--vermilion);cursor:pointer;user-select:none;margin:0 .15em;}
+.sn{display:block;font-family:var(--sans);font-size:.8rem;line-height:1.45;color:var(--ink-fade);margin:1rem 0 1.5rem;padding:.3rem .9rem;border-left:2px solid var(--gold);text-indent:0!important;}
+.sn .num{font-family:var(--mono);color:var(--vermilion);font-size:.75rem;margin-right:.4rem;}
+@media(min-width:1180px){.sn{position:absolute;right:calc(-1 * var(--gutter) + 1rem);width:calc(var(--gutter) - 2rem);margin:0;padding:0;border:none;font-size:.78rem;line-height:1.4;}.sn .num{display:inline;}}
+
+/* Stat box */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(8rem,1fr));gap:1.5rem;margin:2.5rem 0;padding:1.8rem 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);}
+.stat__num{font-family:var(--serif);font-weight:200;font-size:2.6rem;line-height:1;color:var(--vermilion);font-variation-settings:"opsz" 36;letter-spacing:-0.02em;}
+.stat__lab{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-fade);margin-top:.5rem;}
+
+/* Field note */
+.field{margin:2.5rem 0;padding:1.8rem 1.8rem 1.6rem;background:var(--paper-warm);border:1px solid var(--rule);position:relative;}
+.field__tag{position:absolute;top:-.7rem;left:1.5rem;background:var(--paper);padding:0 .6rem;font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--vermilion);}
+.field h4{font-family:var(--serif);font-weight:400;font-size:1.15rem;margin:0 0 .5rem;letter-spacing:var(--tracking-tight);}
+.field p{font-size:.95rem;color:var(--ink-soft);margin:0;text-indent:0!important;}
+.field p+p{margin-top:.6rem;}
+
+/* Code block */
+.codeblock{font-family:var(--mono);font-size:13px;line-height:1.55;background:var(--paper-dark);color:#e8d8b8;padding:1.4rem 1.6rem;margin:2rem 0;overflow-x:auto;border-left:3px solid var(--vermilion);}
+.codeblock .c-key{color:#d99858;}
+.codeblock .c-com{color:#7a7263;font-style:italic;}
+.codeblock .c-str{color:#b6c98a;}
+
+/* Stack list (for Solo Stack chapter) */
+.stack-list{list-style:none;padding:0;margin:2rem 0;}
+.stack-list li{display:grid;grid-template-columns:1fr 6rem;gap:1rem;align-items:baseline;padding:1rem 0;border-bottom:1px solid var(--rule);}
+.stack-list .tool{font-family:var(--serif);font-weight:400;font-size:1.05rem;color:var(--ink);}
+.stack-list .tool em{display:block;font-style:italic;font-size:.9rem;color:var(--ink-fade);margin-top:.15rem;}
+.stack-list .cost{font-family:var(--mono);font-size:.82rem;letter-spacing:.08em;color:var(--gold);text-align:right;}
+
+/* Chapter divider — with optional photo background */
+.divider{height:90vh;background:var(--paper-dark);color:var(--paper);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:4rem 2rem;text-align:center;position:relative;overflow:hidden;}
+.divider__photo{position:absolute;inset:0;background-size:cover;background-position:center;opacity:.22;}
+.divider__content{position:relative;z-index:1;}
+.divider__part{font-family:var(--mono);font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--vermilion);margin-bottom:2rem;}
+.divider__title{font-family:var(--serif);font-weight:200;font-size:clamp(3rem,8vw,6rem);line-height:0.95;letter-spacing:-0.04em;margin:0 0 1.5rem;font-variation-settings:"opsz" 36;}
+.divider__title em{font-style:italic;color:var(--vermilion);font-weight:300;}
+.divider__sub{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(1.05rem,2vw,1.3rem);color:rgba(243,237,224,.66);max-width:36rem;line-height:1.4;margin:0 auto;}
+.divider__chapters{margin-top:4rem;display:flex;flex-wrap:wrap;gap:.4rem 2rem;justify-content:center;font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:rgba(243,237,224,.5);}
+.divider__chapters span{color:var(--vermilion);margin-right:.4rem;}
+
+/* Appendix */
+.appendix{background:var(--paper-warm);padding:7rem 1.5rem;border-top:1px solid var(--rule);}
+.gloss-list{list-style:none;padding:0;margin:2rem 0 0;}
+.gloss-list li{border-top:1px solid var(--rule);padding:1rem 0;display:grid;grid-template-columns:12rem 1fr;gap:1.5rem;}
+.gloss-list li:last-child{border-bottom:1px solid var(--rule);}
+.gloss-list dt{font-family:var(--serif);font-weight:500;font-size:1rem;color:var(--vermilion);letter-spacing:var(--tracking-tight);}
+.gloss-list dd{margin:0;font-size:.96rem;color:var(--ink-soft);line-height:1.5;}
+.sources-list{list-style:none;padding:0;margin:2rem 0 0;font-size:.92rem;color:var(--ink-soft);}
+.sources-list li{padding:.6rem 0;border-bottom:1px solid var(--rule);display:grid;grid-template-columns:6rem 1fr;gap:1rem;}
+.sources-list .src-tag{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--vermilion);padding-top:.25rem;}
+
+/* Colophon */
+.colophon{background:var(--paper-dark);color:rgba(243,237,224,.7);padding:5rem 1.5rem;text-align:center;}
+.colophon h3{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--vermilion);font-weight:500;margin:0 0 1.6rem;}
+.colophon p{max-width:40rem;margin:0 auto 1rem;font-family:var(--serif);font-size:.98rem;line-height:1.6;}
+.colophon a{color:var(--paper);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;}
+
+/* End mark */
+.endmark{display:inline-block;width:.6em;height:.6em;background:var(--vermilion);margin-left:.3em;vertical-align:.05em;}
+
+/* Mobile */
+@media(max-width:720px){
+  body{font-size:17.5px;}
+  .topbar{padding:0 1rem;}
+  .topbar__brand{font-size:10px;}
+  .cover{padding:4rem 1.5rem 2rem;}
+  .cover__mark{display:none;}
+  .chapter{padding:5rem 1.2rem 4rem;}
+  .chapter__head{margin-bottom:2.5rem;}
+  .dropcap::first-letter{font-size:4rem;}
+  .pull{font-size:1.35rem;padding-left:1rem;}
+  .toc__list a{grid-template-columns:3rem 1fr;}
+  .toc__list .pg{display:none;}
+  .toc__list .ttl{font-size:1.1rem;}
+  .gloss-list li{grid-template-columns:1fr;gap:.3rem;}
+  .sources-list li{grid-template-columns:1fr;}
+  .stack-list li{grid-template-columns:1fr;}
+  .stack-list .cost{text-align:left;}
+}
+@media print{
+  .topbar,.progress,.drawer,.scrim,.cover__hint{display:none!important;}
+  body{background:white;color:black;font-size:11pt;}
+  .chapter{page-break-before:always;padding:0;}
+  .pull,.field,.codeblock{break-inside:avoid;}
+}
+</style>
+</head>
+<body>
+
+<div class="progress" aria-hidden="true"><div class="progress__bar"></div></div>
+
+<div class="topbar">
+  <div class="topbar__brand"><strong>Ninja Innovation</strong> &nbsp;·&nbsp; Non Arkara</div>
+  <div class="topbar__nav">
+    <button class="topbar__btn" id="openNav" aria-label="Open contents">Contents ☰</button>
+  </div>
+</div>
+
+<div class="scrim"></div>
+
+<aside class="drawer" aria-label="Chapter navigation">
+  <div class="drawer__head">
+    <p class="drawer__title">Contents</p>
+    <button class="drawer__close" id="closeNav" aria-label="Close">✕</button>
+  </div>
+  <ul class="drawer__list">
+    <li><a href="#cover"><span class="num">—</span><span>Cover</span></a></li>
+    <li><a href="#preface"><span class="num">i</span><span>Preface</span></a></li>
+    <li><a href="#contents"><span class="num">ii</span><span>Contents</span></a></li>
+    <li class="part">Part I · The Manifesto</li>
+    <li><a href="#ch-1"><span class="num">01</span><span>What Ninja Innovation Means</span></a></li>
+    <li><a href="#ch-2"><span class="num">02</span><span>The Vendor Trap</span></a></li>
+    <li><a href="#ch-3"><span class="num">03</span><span>The Four Ps</span></a></li>
+    <li><a href="#ch-4"><span class="num">04</span><span>Solve First, Policy Later</span></a></li>
+    <li><a href="#ch-5"><span class="num">05</span><span>Public Data Is the New Gold</span></a></li>
+    <li class="part">Part II · Field Notes</li>
+    <li><a href="#ch-6"><span class="num">06</span><span>Nakhon Si Thammarat</span></a></li>
+    <li><a href="#ch-7"><span class="num">07</span><span>Phuket</span></a></li>
+    <li><a href="#ch-8"><span class="num">08</span><span>Rayong</span></a></li>
+    <li><a href="#ch-9"><span class="num">09</span><span>The Seven Thousand Cities</span></a></li>
+    <li><a href="#ch-10"><span class="num">10</span><span>The Middle East</span></a></li>
+    <li class="part">Part III · The Toolkit</li>
+    <li><a href="#ch-11"><span class="num">11</span><span>The Solo Stack</span></a></li>
+    <li><a href="#ch-12"><span class="num">12</span><span>Built for Real Life, Not Demos</span></a></li>
+    <li><a href="#ch-13"><span class="num">13</span><span>Incentives Beat Instructions</span></a></li>
+    <li><a href="#ch-14"><span class="num">14</span><span>If You Can Imagine It</span></a></li>
+    <li class="part">Appendix</li>
+    <li><a href="#glossary"><span class="num">A</span><span>Glossary</span></a></li>
+    <li><a href="#sources"><span class="num">B</span><span>Sources &amp; Notes</span></a></li>
+    <li><a href="#colophon"><span class="num">C</span><span>Colophon</span></a></li>
+  </ul>
+</aside>
+
+<main class="book">
+
+<!-- COVER -->
+<section id="cover" class="cover" data-screen-label="Cover">
+  <div class="cover__photo" style="background-image:url('assets/photos/DSC02252.jpg')"></div>
+  <div class="cover__overlay"></div>
+  <div class="cover__rule"></div>
+  <div class="cover__rule bottom"></div>
+  <div class="cover__meta">
+    <span>An Ebook by <strong>Non Arkara, PhD</strong></span>
+    <span>Bangkok &nbsp;·&nbsp; <strong>2026</strong></span>
+  </div>
+  <svg class="cover__mark" viewBox="0 0 200 200" aria-hidden="true">
+    <defs>
+      <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
+        <path d="M 10 0 L 0 0 0 10" fill="none" stroke="#f3ede0" stroke-width="0.5" opacity="0.18"/>
+      </pattern>
+    </defs>
+    <rect width="200" height="200" fill="url(#grid)"/>
+    <circle cx="100" cy="100" r="78" fill="none" stroke="#b8392a" stroke-width="1.5"/>
+    <circle cx="100" cy="100" r="58" fill="none" stroke="#b8392a" stroke-width="1" opacity=".5"/>
+    <circle cx="100" cy="100" r="6" fill="#b8392a"/>
+    <line x1="100" y1="22" x2="100" y2="178" stroke="#b8392a" stroke-width="0.8" opacity=".55"/>
+    <line x1="22" y1="100" x2="178" y2="100" stroke="#b8392a" stroke-width="0.8" opacity=".55"/>
+    <circle cx="138" cy="68" r="4" fill="#b8392a"/>
+    <circle cx="62" cy="138" r="3" fill="#b8392a"/>
+    <circle cx="148" cy="142" r="2.5" fill="#b8392a"/>
+    <circle cx="58" cy="60" r="2" fill="#b8392a"/>
+    <text x="100" y="195" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="6" letter-spacing="3" fill="#f3ede0">N · I · 2026</text>
+  </svg>
+  <div class="cover__center">
+    <p class="cover__kicker">A People-Centric Practice for the AI Era</p>
+    <h1 class="cover__title">Ninja<br><em>Innovation</em></h1>
+    <p class="cover__sub">How a public servant replaces million-dollar platforms with curiosity, public data, and a second-hand laptop.</p>
+    <p class="cover__byline">By <span>Non Arkara</span> &nbsp;·&nbsp; depa Thailand</p>
+  </div>
+  <div class="cover__bottom">
+    <span>Ed. 1.0 &nbsp;·&nbsp; HTML</span>
+    <span class="cover__hint">Scroll to begin ↓</span>
+    <span>14 Chapters</span>
+  </div>
+</section>
+
+<!-- PREFACE -->
+<section id="preface" class="front" data-screen-label="Preface">
+  <div class="column">
+    <p class="front-title">Preface</p>
+    <h2>A note before we begin.</h2>
+    <p class="dropcap">The first time I called something a <em>ninja innovation</em>, I was on a stage in Singapore at GITEX 2026, holding a coffee cup that was making my hands shake, and I had a problem. The problem was that I wanted to know which parts of the Middle East were too dangerous to fly over, and the people who would normally tell me that were not in my contact list. I did not have an analyst on the ground. I did not have a friend at a defense ministry. I had a cheap laptop and the internet.</p>
+    <p>So I opened a public NASA satellite layer that maps aerosol concentration in the atmosphere. Aerosols mean combustion. Combustion means active conflict, or burning agriculture, or factories. I toggled the layer. The map lit up where the war was hot. I did not have the data I wanted. I had a substitute that was, in that moment, just as useful.</p>
+    <p>This book is about that move. It is about doing more with less, working sideways instead of through, and refusing to wait for the procurement cycle to finish before you start helping people. It collects what I have learned across two decades of designing cities, eight years of running smart-city programs at depa Thailand, and the strange, exhilarating last two years in which generative and agentic AI made it possible for a single curious person to build what used to require a vendor, a contract, and a board meeting.</p>
+    <p>I am not a coder by training. I learned Python a year ago. I am an architect who became an anthropologist who became a public servant. The fact that I can now build a working national livability dashboard in less than a day, on subscription tools that cost less than my breakfast, is not a story about me. It is a story about what is now possible, for almost anyone, if they are willing to ask one obstinate question: <em>what would I do if I were not allowed to spend any money?</em></p>
+    <p>This is what I would do.<span class="endmark"></span></p>
+    <div class="orn"><span>· · ·</span></div>
+    <p style="font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-fade);text-align:center;">Bangkok &nbsp;·&nbsp; March 2026</p>
+  </div>
+</section>
+
+<!-- TABLE OF CONTENTS -->
+<section id="contents" class="toc" data-screen-label="Contents">
+  <div class="column column--wide">
+    <p class="front-title">Contents</p>
+    <h2>Fourteen chapters, three parts, one practice.</h2>
+    <ul class="toc__list">
+      <li class="toc__part">Part I · The Manifesto</li>
+      <li><a href="#ch-1"><span class="num">01</span><span class="ttl">What Ninja Innovation Means<em>Sideways through the wall.</em></span><span class="pg">p. 1</span></a></li>
+      <li><a href="#ch-2"><span class="num">02</span><span class="ttl">The Vendor Trap<em>Money and good intentions don't make a city livable.</em></span><span class="pg">p. 2</span></a></li>
+      <li><a href="#ch-3"><span class="num">03</span><span class="ttl">The Four Ps<em>Purpose · Practical · Proof · People.</em></span><span class="pg">p. 3</span></a></li>
+      <li><a href="#ch-4"><span class="num">04</span><span class="ttl">Solve First, Policy Later<em>Build the system; let the data write the policy.</em></span><span class="pg">p. 4</span></a></li>
+      <li><a href="#ch-5"><span class="num">05</span><span class="ttl">Public Data Is the New Gold<em>Satellites, social listening, the radio, the fine print.</em></span><span class="pg">p. 5</span></a></li>
+      <li class="toc__part">Part II · Field Notes</li>
+      <li><a href="#ch-6"><span class="num">06</span><span class="ttl">The Flood City<em>Nakhon Si Thammarat — 184 hours to 42.</em></span><span class="pg">p. 6</span></a></li>
+      <li><a href="#ch-7"><span class="num">07</span><span class="ttl">Forty-Five Minutes<em>Phuket — a smart bus and a digital twin.</em></span><span class="pg">p. 7</span></a></li>
+      <li><a href="#ch-8"><span class="num">08</span><span class="ttl">A Map of Quiet Suffering<em>Rayong — non-communicable disease, a citizen dashboard.</em></span><span class="pg">p. 8</span></a></li>
+      <li><a href="#ch-9"><span class="num">09</span><span class="ttl">The Seven Thousand Cities<em>A livability index that doesn't put Bangkok first.</em></span><span class="pg">p. 9</span></a></li>
+      <li><a href="#ch-10"><span class="num">10</span><span class="ttl">Atmosphere as Witness<em>Building intelligence out of public satellites.</em></span><span class="pg">p. 10</span></a></li>
+      <li class="toc__part">Part III · The Toolkit</li>
+      <li><a href="#ch-11"><span class="num">11</span><span class="ttl">The Solo Stack<em>Subscriptions, agents, audits, sleep.</em></span><span class="pg">p. 11</span></a></li>
+      <li><a href="#ch-12"><span class="num">12</span><span class="ttl">Built for Real Life, Not Demos<em>The thirty-six-button TV remote.</em></span><span class="pg">p. 12</span></a></li>
+      <li><a href="#ch-13"><span class="num">13</span><span class="ttl">Incentives Beat Instructions<em>How citizens promote civil servants.</em></span><span class="pg">p. 13</span></a></li>
+      <li><a href="#ch-14"><span class="num">14</span><span class="ttl">If You Can Imagine It<em>A coda, with cautions.</em></span><span class="pg">p. 14</span></a></li>
+      <li class="toc__part">Appendix</li>
+      <li><a href="#glossary"><span class="num">A</span><span class="ttl">Glossary</span><span class="pg">p. 15</span></a></li>
+      <li><a href="#sources"><span class="num">B</span><span class="ttl">Sources &amp; Notes</span><span class="pg">p. 16</span></a></li>
+      <li><a href="#colophon"><span class="num">C</span><span class="ttl">Colophon</span><span class="pg">p. 17</span></a></li>
+    </ul>
+  </div>
+</section>
+
+<!-- PART I DIVIDER -->
+<section id="part-1" class="divider" data-screen-label="Part I">
+  <div class="divider__photo" style="background-image:url('assets/photos/DSC02270.jpg')"></div>
+  <div class="divider__content">
+    <p class="divider__part">Part One</p>
+    <h2 class="divider__title">The <em>Manifesto</em></h2>
+    <p class="divider__sub">Five chapters on the practice. What ninja innovation is, why the old way breaks, and the simple shape of the new way.</p>
+    <div class="divider__chapters">
+      <div><span>01</span>What Ninja Innovation Means</div>
+      <div><span>02</span>The Vendor Trap</div>
+      <div><span>03</span>The Four Ps</div>
+      <div><span>04</span>Solve First, Policy Later</div>
+      <div><span>05</span>Public Data Is the New Gold</div>
+    </div>
+  </div>
+</section>
+
+<!-- CHAPTER 1 -->
+<section id="ch-1" class="chapter" data-screen-label="01 Ninja Innovation">
+  <div class="chapter__head">
+    <div class="chapter__num">Chapter One</div>
+    <h2 class="chapter__title">What <em>Ninja</em> Innovation Means</h2>
+    <p class="chapter__sub">Sideways through the wall. A definition by way of a coffee cup, a satellite, and a war.</p>
+  </div>
+  <div class="chapter__body">
+    <p class="dropcap">There is a particular kind of frustration that arrives when you discover that the data you need to do your job is sitting behind a wall you cannot climb. The wall might be a paywall. It might be a ministry. It might be a procurement clause that asks for six months of TOR writing before anyone is allowed to call anyone else. Whatever it is, the wall is there, and it is between you and the question you are trying to answer.</p>
+    <p>The traditional response is to spend money. Hire a vendor. Sign a contract. Wait. Hope the data, when it finally arrives, is still relevant to the question you originally asked.</p>
+    <p>The ninja response is different. It says: I am not going to climb this wall. I am going to find a substitute that is, for my purpose, just as good — maybe better — and is sitting in plain view.</p>
+    <h3>A definition</h3>
+    <p>Ninja innovation is the practice of solving real public problems by combining three things that are now, for the first time in history, abundantly available to anyone with a laptop and curiosity:</p>
+    <p><strong>One.</strong> Public data — satellite feeds, open APIs, government records that, by treaty or by law, are obligated to be open if you read the fine print.<span class="sn-marker" data-sn="1">¹</span></p>
+    <span class="sn" id="sn-1"><span class="num">1.</span> NASA, JAXA, ISRO, ESA, Roscosmos and the Chinese space agencies all publish satellite data with public-access provisions. The fine print varies; the principle does not.</span>
+    <p><strong>Two.</strong> Generative and agentic AI — models that can read, summarize, triangulate, and now, increasingly, take actions on your behalf. They do not replace your judgment. They extend the reach of one person's hands.</p>
+    <p><strong>Three.</strong> A sideways question — the willingness to ask not "how do I get the data I want?" but "what would tell me almost the same thing?"</p>
+    <p>That third ingredient is the rare one. Public data has been around for a decade. AI is everywhere now. What is rare is the practitioner who, when blocked, refuses to wait, and instead goes looking for a useful proxy.</p>
+    <div class="pull">Ninja innovation is asking, on purpose, the wrong question — because the wrong question can be answered today and the right question cannot.</div>
+    <h3>The aerosol map</h3>
+    <p>I will tell you the story I told the room in Singapore. I had been asked to advise on travel routes through the Middle East during a flare-up. The honest answer was that I did not know. I am Thai. I work for a Thai agency. I have no analyst on the ground in Tehran or Tel Aviv. The honest, helpful answer required ground truth I did not have access to.</p>
+    <p>So I asked the wrong question. I asked: where in the Middle East is there a lot of combustion right now? Combustion produces aerosols. Aerosols are tracked, in near real time, by the public satellite layer that NASA and JAXA publish daily. I toggled the layer. The map lit up where the war was hot, where industry was burning, where agricultural fires were going. It was not the map I wanted. It was a map that told me, with about ninety percent fidelity, what I needed to know.</p>
+    <p>That is ninja innovation. I did not get information. I substituted it. I did not pay for it. It was already there. I did not write a TOR. I clicked a checkbox.</p>
+    <h3>Why ninja</h3>
+    <p>I use the word with affection and with a small amount of self-mockery. Ninjas, in the cinematic shorthand we all carry, are quiet and asymmetric. They do not announce themselves. They do not fight the dragon. They slip past it.</p>
+    <p>That is the posture I want for this practice. Not heroic. Not adversarial. Just oblique. The bureaucracy is the dragon. The vendor's price sheet is the dragon. The fact that the one person in your office who knows how to do this thing has been on leave for two months is the dragon. You are not going to slay any of them. You are going to slip past them and deliver something useful while everyone else is still arguing about the tender.</p>
+    <p>The ninja innovator's question is not <em>why is this so hard?</em> It is <em>what is the smallest move I can make right now that gets us partway there?</em></p>
+    <h3>What this book is for</h3>
+    <p>This book is a record of those moves. Some are recipes — exact tools, exact stacks, exact prompts I used. Some are patterns — the shape of a problem and the shape of the workaround. Some are stories from the field, because the workaround that worked in Nakhon Si Thammarat is, by accident, also the workaround that will work in Lagos or Lima.</p>
+    <p>I have organized it in three parts. The first is the manifesto: the five principles that separate this practice from the older one. The second is field notes: five real cases, with the costs and the failures included. The third is the toolkit: the actual stack, the actual incentives, the actual things that go wrong at four in the morning when an agent has been running unsupervised for six hours.</p>
+    <p>If you only read one part, read the field notes. The principles will sound obvious there. They are not obvious until you watch them work.<span class="endmark"></span></p>
+    <div class="orn"><span>· · ·</span></div>
+  </div>
+</section>
+
+<!-- CHAPTER 2 -->
+<section id="ch-2" class="chapter" data-screen-label="02 Vendor Trap">
+  <div class="chapter__head">
+    <div class="chapter__num">Chapter Two</div>
+    <h2 class="chapter__title">The <em>Vendor</em> Trap</h2>
+    <p class="chapter__sub">Why money and good intentions, even in combination, do not make a city livable.</p>
+  </div>
+  <div class="chapter__body">
+    <p class="dropcap">There is a photograph I keep in a folder on my desktop. It shows a wide, empty boulevard in Ordos Kangbashi, the famous Chinese ghost city that Forbes has been writing updates on for ten years. The avenue is six lanes wide. The streetlights are immaculate. There are no cars. There are almost no people. There is a very large, very clean sculpture in the middle of a roundabout. The sculpture is of two horses. The horses are bigger than the cars that are not there.</p>
+    <p>I keep the photograph because every time I am asked to advise on a smart city plan and someone shows me a render, I open the folder. The render is always lush. The grass is always green. The pedestrians, drawn in by the marketing team, are always smiling and almost always white. The render shows me what the city will look like the day it opens. The Ordos photograph shows me what a city looks like seven years after it opens, when the speculation has cooled and the residents have not arrived.</p>
+    <div class="pull">Money and good intentions don't make a city livable.<cite>The first slide of every talk I give.</cite></div>
+    <h3>A list of expensive failures</h3>
+    <p>Songdo, in South Korea, was supposed to be the smartest city in Asia. Sensors in every lamppost, automated waste tubes under the sidewalks, a master plan drawn by an American architect with a master plan reputation. Le Monde, a few years in, called it a ghetto for the affluent. Foreign companies did not move their headquarters. The waste tubes filled with the wrong kind of waste.</p>
+    <p>Nusantara, the new Indonesian capital being built from scratch in the jungle of East Kalimantan, has had hundreds of billions of rupiah committed to it and roughly the population of a midsize village living on site. Investors have been quietly pulling out for two years. The architects, I would bet money, do not plan to live there.</p>
+    <p>I do not bring up these projects to mock them. I have, in my career, been the urban planner whose render was on the wall. The point is not that these designers were stupid. They were not. The point is that <em>money plus intention</em>, the formula that built every smart-city deck of the last two decades, does not produce livability. It produces real estate. Sometimes it does not even produce that.</p>
+    <h3>The procurement gauntlet</h3>
+    <p>Let me describe what happens, in a normal smart-city contract in a normal Asian government, when a real problem is identified and someone tries to solve it.</p>
+    <p>Month one through six: a Terms of Reference is drafted. The TOR specifies, in exhaustive detail, what the system shall do. It cannot specify too loosely or the procurement officers will reject it. It cannot specify too tightly or only one vendor will qualify. It is rewritten an average of four times.</p>
+    <p>Month seven through twelve: procurement. Bidders are invited. Bidders pretend their off-the-shelf product matches the TOR exactly. They are awarded the contract. The actual product, when it arrives, will turn out not to match the TOR exactly.</p>
+    <p>Month thirteen through fifteen: bidding details, kickoff meetings, signature delays. Month sixteen through eighteen: planning. The vendor's architect describes the system on PowerPoint slides. Month nineteen through twenty-four: implementation. Halfway through, the technology referenced in the TOR is superseded by something better. The contract does not allow for substitution.</p>
+    <p>You have spent two years and several million dollars and you have arrived at a system whose technology is, on the day it goes live, already a generation old. The mayor who started the project may no longer be the mayor.</p>
+    <div class="pull">It used to be the case that we had to have a contract first. Get paid first. Move on to doing anything later. That era is over.</div>
+    <h3>The flip</h3>
+    <p>Here is the alternative. It works because it costs almost nothing.</p>
+    <p>You see a problem. You build the smallest working version of a solution in a weekend, on subscription tools that bill you twenty-five dollars a month. You show it to the mayor, the agency head, the operator on the ground. If they like it, you talk about scaling. If they do not, you turn it off. The cost of being wrong is twenty-five dollars and a Saturday.</p>
+    <p>The Phuket smart bus, which I will return to in chapter seven, is a system the city did not have. To convince Phuket that GPS-tracked, demand-aware buses would be a real improvement, I built a working simulation. It took me forty-five minutes on a second-hand laptop in a coffee shop. I sent the URL to the relevant person in Phuket. They saw the gap. They wanted the system.</p>
+    <p>This is the flip. The contract does not lead to the project. The project leads to the contract. The prototype is the proposal.</p>
+    <h3>What dies in the flip</h3>
+    <p>I want to be honest about what is lost. The procurement system, for all its inefficiency, was a discipline against corruption. It enforced documentation. The flip removes that discipline by removing the contract from the front of the process.</p>
+    <p>This is why ninja innovation is, by design, almost free. If the project costs me twenty-five dollars a month, no one will accuse me of corruption. There is nothing to embezzle. When you can no longer use money as a reward, you have to find the reward somewhere else. We will come back to that in chapter thirteen.</p>
+    <p>For now: the trap is real. Money is necessary for some things. It is not what makes a city smart. What makes a city smart is somebody, ideally not too senior, who is willing to skip the contract and ship the prototype.<span class="endmark"></span></p>
+    <div class="orn"><span>· · ·</span></div>
+  </div>
+</section>
+
+<!-- CHAPTER 3 -->
+<section id="ch-3" class="chapter" data-screen-label="03 Four Ps">
+  <div class="chapter__head">
+    <div class="chapter__num">Chapter Three</div>
+    <h2 class="chapter__title">The <em>Four</em> Ps</h2>
+    <p class="chapter__sub">Purpose, Practical, Proof, People. A framework I keep returning to because it keeps surviving contact with reality.</p>
+  </div>
+  <div class="chapter__body">
+    <p class="dropcap">A framework should earn its keep. Most of the frameworks that get put on slides do not — they are mnemonics in search of a memory. The Four Ps survive because they catch, in order, the four ways every smart-city project I have ever seen tends to fail. If a project is failing, it is failing on at least one of these. Usually two.</p>
+    <p>The Ps are: Purpose, Practical, Proof, and People. Or, if you prefer the verb forms: design, data, optimize, incentivize.</p>
+    <h3>Purpose: design with a real outcome</h3>
+    <p>Purpose is different from intention. Intention is a feeling. Purpose is a measurable outcome you have committed to.</p>
+    <p>Intention says: we want our students to be more engaged. Purpose says: we are going to use AR and VR to teach biology, and we will measure engagement, not grades, and the success criterion is plus forty percent on the engagement metric within one school year.</p>
+    <p>That is what we did at Nakhon Si Thammarat Metaverse School, in southern Thailand. Engagement, not grades, was the target — because grades, we believed, would follow engagement automatically, and they did. We hit the forty-percent number. We could not have hit it if we had spent a year arguing about the educational philosophy of the metaverse before turning anything on.</p>
+    <p>The trap inside Purpose is the trap of the impressive demo. A demo does not have a purpose. It has an audience. Build for real life, not demos.</p>
+    <h3>Practical: better data, used promptly</h3>
+    <p>Practical means digitalization that earns its complexity. It means using data to change a physical decision in a way that will be felt by a human being within forty-eight hours.</p>
+    <p>The case here is the digital twin we built for Phuket. Sensors, cameras, simulation. The output is not an animation. The output is: traffic congestion is down thirty percent, and the city now has forty-eight hours of advance warning before a flood. The animation is a side effect.</p>
+    <p>The test for Practical is brutal: name the decision this data changes. If you cannot name it, the data is decoration.</p>
+    <div class="pull">Start with clean, linked data. Let AI surface patterns and trade-offs. Humans make the decisions. Faster, fairer calls.</div>
+    <h3>Proof: optimize, do not assume</h3>
+    <p>Proof is the discipline of treating every belief as a hypothesis until the system tells you it is true.</p>
+    <p>In Rayong, we built a remote-care system for non-communicable disease. The hypothesis was that local governments needed a way to classify residents into four risk tiers — Normal, At-Risk, Disabled, Bedridden — so that benefits could be targeted by tier. We did not optimize the distribution before we ran the system. We ran the system, watched what happened, and only then did we optimize. The result was a fifteen to twenty percent reduction in cost.</p>
+    <p>The order matters: ship, measure, then improve.</p>
+    <h3>People: incentives over instructions</h3>
+    <p>The fourth P is the one I wish more leaders thought about first.</p>
+    <p>You can mandate a system. People will use it for as long as someone is looking. Then they will go around it. Or you can make using the system the path of least resistance, plus a small reward. The reward does not have to be money.</p>
+    <p>In Nakhon Si Thammarat, citizens report problems to a LINE app. They give the staff who fix the problems a one-to-five star rating. Staff stars accumulate. Stars feed into promotion decisions, automatically, with no committee.</p>
+    <p>What used to be the kiss-the-boss promotion model became the kiss-the-citizen promotion model. And the response time? It went from one hundred and eighty-four hours to forty-two.</p>
+    <div class="pull">Incentives beat instructions, every time. Reward the behavior you want and the behavior shows up.</div>
+    <h3>The Ps in order</h3>
+    <p>The order is the order of failure. A project without Purpose fails first, at conception. A project with Purpose but no Practical data fails second, at implementation. A project with both but no Proof fails third, at scaling. A project with all three but no People dies fourth, the slow death by quiet non-adoption.</p>
+    <p>If you are diagnosing a project that is in trouble, walk down the list and stop at the first one that breaks. That is the one to fix.<span class="endmark"></span></p>
+    <div class="orn"><span>· · ·</span></div>
+  </div>
+</section>
+
+<!-- CHAPTER 4 -->
+<section id="ch-4" class="chapter" data-screen-label="04 Solve First">
+  <div class="chapter__head">
+    <div class="chapter__num">Chapter Four</div>
+    <h2 class="chapter__title">Solve <em>First</em>, Policy Later</h2>
+    <p class="chapter__sub">An inversion of the old order. The system writes the policy, not the other way around.</p>
+  </div>
+  <div class="chapter__body">
+    <p class="dropcap">For most of my career, I worked on the assumption that policy comes first. You convene the working group. You produce the white paper. You consult the stakeholders. You publish the strategy. And then, after about eighteen months, you build the thing the strategy describes.</p>
+    <p>The problem with this order is not that policy is bad. The problem is that policy, written in the absence of a working system, is a guess. Sometimes the guess is correct. More often it is correct in the abstract and wrong in the specific. The system, when finally built, has to be retrofitted around a policy that was written before anyone knew what the system would actually do.</p>
+    <p>The inversion is simple. Build a small working version of the system first. Watch what people do with it. Codify what works.</p>
+    <h3>Why this is now possible</h3>
+    <p>This inversion was not available to anyone five years ago. Building anything required vendors, time, and money. Today the cost of a working prototype is, in the cases I will describe, between zero and twenty-five dollars a month. The cost of being wrong is the cost of a coffee. That changes the math of policy.</p>
+    <p>It changes who is qualified to propose policy, too. Until recently, only the people with the budget could propose anything. Today, the person with curiosity and a laptop can propose by demonstration. The mayor sees a working dashboard. The dashboard makes a case the white paper could not have made.</p>
+    <h3>An example</h3>
+    <p>The civic-issue reporting system in Nakhon Si Thammarat was not policy first. There was no smart-city ordinance that mandated it. There was a flood-prone city, a mayor who needed re-election, an annual cycle of damage, and one civil servant who built a small thing.</p>
+    <p>The small thing was a LINE bot that took a photograph, extracted its geolocation, ran it through a quick AI check for plausibility, opened a ticket, dispatched a team, and waited for the citizen to rate the outcome. It cost almost nothing to build and almost nothing to run.</p>
+    <p>The first month, a few hundred citizens used it. The first year, tens of thousands. By the time we were tracking the system at scale, it had handled forty-thousand-plus problems. <em>Then</em> the policy got written. The regulation was not a guess. It was a description.</p>
+    <div class="pull">I used to write policy in my office and hope people would use it. They did not. Now I do first, and I use the data to guide policy.</div>
+    <h3>The fail-fast clause</h3>
+    <p>The other half of solve-first is also kill-first. If a system does not work, you turn it off. There is no political capital invested in it. There is no five-year plan that has to be saved. There is, in my case, a server bill that you stop paying.</p>
+    <p>I have killed many systems. I have built a Bangkok-wide air-quality alerting tool that nobody used and turned it off after six weeks. I have built a tourism-recommendation prototype that was technically correct and culturally useless and turned it off after a month. The freedom to kill a system is structurally identical to the freedom to build one. Both freedoms come from the cost being low.</p>
+    <h3>What policy is for, when you no longer write it first</h3>
+    <p>Policy is now a description of what is already working, formalized so it can be funded, scaled, and protected from political turnover. It is a ratchet, not a blueprint. It is what you write after you have stopped guessing.</p>
+    <p>This is, perhaps not coincidentally, what I trained for. I am an anthropologist by doctorate. I spent four years in Shanghai's alleyway houses watching what residents actually did, as opposed to what they said they did. The lesson of that fieldwork has, two decades later, become the lesson of this practice. Policy by ethnography. Build first. Watch hard. Codify the truth.<span class="endmark"></span></p>
+    <div class="orn"><span>· · ·</span></div>
+  </div>
+</section>
+
+<!-- CHAPTER 5 -->
+<section id="ch-5" class="chapter" data-screen-label="05 Public Data">
+  <div class="chapter__head">
+    <div class="chapter__num">Chapter Five</div>
+    <h2 class="chapter__title">Public Data Is the <em>New</em> Gold</h2>
+    <p class="chapter__sub">Satellites, social listening, traffic radio, the fine print of treaties. A field guide to what is already free.</p>
+  </div>
+  <div class="chapter__body">
+    <p class="dropcap">For a long time, the smart-city industry treated data as a commodity to be purchased. Vendors would arrive with their proprietary sensors and their proprietary analytics platforms and their proprietary licensing terms. Cities would pay. Cities would notice that the data was not all that useful. Cities would pay anyway.</p>
+    <p>This still happens. It is a smaller industry than it used to be, because most of the data that mattered turns out to be free if you know where to look.</p>
+    <h3>The five kinds of free data</h3>
+    <p><strong>Satellite layers.</strong> NASA, JAXA, ISRO, ESA, the Chinese space agencies, and Roscosmos all operate under public-data obligations of varying strictness. The fine print is rarely cited because almost nobody reads it. I have read it. Aerosol concentration, vegetation health, surface temperature, nighttime lights, precipitation, water vapor — all queryable, daily, in near real time.<span class="sn-marker" data-sn="2">²</span></p>
+    <span class="sn" id="sn-2"><span class="num">2.</span> The repo is called global-monitor. Anyone with a Claude or Gemini subscription can point an LLM at it and have a working satellite-monitoring dashboard running in an afternoon.</span>
+    <p><strong>Open government data.</strong> Almost every national statistics office publishes a feed. The World Bank, the Asian Development Bank, the OECD, and the UN all publish economic and demographic feeds. The data is messy and sometimes years out of date. AI cleans it faster than a research assistant.</p>
+    <p><strong>Social listening.</strong> Citizens broadcast their problems publicly all the time. They do it on TikTok, on X, on local Facebook groups. Tools that sample and classify these signals exist. A flooded street in Bangkok shows up on social media within minutes; the official report shows up days later, if at all.</p>
+    <p><strong>Webcams and traffic feeds.</strong> Cities have already paid for cameras at intersections, in transit hubs, at construction sites. Most of these cameras stream publicly or semi-publicly. AI can watch them at a fraction of a cent per analysis.</p>
+    <p><strong>Radio.</strong> This one I love. In Bangkok, traffic-accident information is still distributed by analog radio. So I have a radio at home, with a microphone in front of it, listening twenty-four hours a day. Every time the radio reports an accident, an AI model transcribes it and writes a pin to a map. Analog data, made digital, with no input from any human. Total cost: the price of a radio.</p>
+    <h3>The discipline of the proxy</h3>
+    <p>Public data is rarely the data you originally wanted. It is almost always the data that, with a little ingenuity, gives you ninety percent of what you wanted.</p>
+    <p>You wanted ground truth in the Middle East. You got aerosol concentration. You wanted in-bus passenger counts. You used flight-arrival schedules as a demand proxy. The skill is not access. The skill is the proxy. What is almost-the-same-thing, free?</p>
+    <div class="pull">Data is always available. It is rarely the data you wanted. The job is to find the substitute that nobody has thought of yet, before someone packages it as a product.</div>
+    <h3>The expiry problem</h3>
+    <p>One caveat. Free data tends to become not-quite-free over time, especially when it becomes economically valuable. The defense against this is to use it while it is open, and to publish your work in such a way that the open data community has a stake in keeping it open. I publish my pipelines. I share the GitHub repos. I do this in part because I believe in the public-good case, and in part because if my pipelines are widely depended on, the satellites that feed them are slightly more likely to remain open. Mutual interest is the cheapest insurance.</p>
+    <p>If you have a project you are thinking about, do not wait. The data is free today.<span class="endmark"></span></p>
+    <div class="orn"><span>· · ·</span></div>
+  </div>
+</section>
+
+<!-- PART II DIVIDER -->
+<section id="part-2" class="divider" data-screen-label="Part II">
+  <div class="divider__photo" style="background-image:url('assets/photos/BEN01300.jpg')"></div>
+  <div class="divider__content">
+    <p class="divider__part">Part Two</p>
+    <h2 class="divider__title">Field <em>Notes</em></h2>
+    <p class="divider__sub">Five projects, with the costs, the failures, and the awkward moments included. The principles from Part One in the wild.</p>
+    <div class="divider__chapters">
+      <div><span>06</span>Nakhon Si Thammarat</div>
+      <div><span>07</span>Phuket</div>
+      <div><span>08</span>Rayong</div>
+      <div><span>09</span>Bangkok at 7,000 Cities</div>
+      <div><span>10</span>The Aerosol Map</div>
+    </div>
+  </div>
+</section>
+
+<!-- CHAPTER 6 -->
+<section id="ch-6" class="chapter" data-screen-label="06 Nakhon">
+  <div class="chapter__head">
+    <div class="chapter__num">Chapter Six</div>
+    <h2 class="chapter__title">Nakhon Si <em>Thammarat</em></h2>
+    <p class="chapter__sub">A flood city in southern Thailand learns to listen to its own residents. 184 hours becomes 42.</p>
+  </div>
+  <div class="chapter__body">
+    <p class="dropcap">Nakhon Si Thammarat is a province most people outside Thailand have never heard of. It sits on the eastern coast of the southern peninsula, between the Gulf of Thailand and a chain of low mountains. The mountains catch the monsoon. The monsoon falls on the city. The city floods, every year, in patterns that have been documented since the seventeenth century and that no infrastructure budget has ever fully addressed.</p>
+    <p>The mayor at the time was a man named Kanesh, and the problem he came to me with was not the floods themselves. The floods were unsolvable on his timeline. The problem was the response time on the ten thousand small things that broke after a flood — and between floods. The streetlight that had been out for a month. The drain clogged with leaves. These were, in aggregate, why people were unhappy with the municipality.</p>
+    <div class="stats">
+      <div><div class="stat__num">184h</div><div class="stat__lab">Median response before</div></div>
+      <div><div class="stat__num">42h</div><div class="stat__lab">Median response after</div></div>
+      <div><div class="stat__num">40K+</div><div class="stat__lab">Tickets resolved</div></div>
+      <div><div class="stat__num">120K+</div><div class="stat__lab">Active subscribers</div></div>
+    </div>
+    <h3>The baseline</h3>
+    <p>The baseline response time, when we measured it, was one hundred and eighty-four hours. Just under eight days. That was the median time between a citizen reporting a problem and the problem being marked resolved. The reporting channels were a phone line that was rarely answered, a walk-in counter at city hall, and a Facebook page that was monitored erratically.</p>
+    <h3>The build</h3>
+    <p>What we built was a LINE app. LINE is the messaging app that everyone in Thailand uses, the way Brazilians use WhatsApp. The friction of installing a new app would have killed the project in a week. So we did not install a new app. We added a chatbot to the messenger people were already in.</p>
+    <p>The bot took a photo. It pulled the geolocation from the photo's metadata. It asked the citizen, in casual Thai, to pick a category. It opened a ticket. It dispatched the ticket to the relevant department. When the work was complete, it pinged the citizen and asked for a one-to-five star rating.</p>
+    <p>The clever part was the rating. Stars accumulated, by staff member. The staff who got the most five-star ratings on the most tickets resolved fastest got promoted. The committee had no role. The mayor had almost no role. The citizens decided who advanced.</p>
+    <div class="pull">The bureaucracy used to optimize for kissing the boss. Now it optimizes for kissing the citizen. The mayor sleeps better.</div>
+    <h3>What went wrong</h3>
+    <p>Three things went wrong. One: the AI categorization was wrong about ten percent of the time. A photograph of a dead snake on a sidewalk got categorized as "stray animal" and dispatched to animal control, who arrived expecting a live one. We added a triage layer.</p>
+    <p>Two: a few staff members figured out that they could resolve tickets quickly by marking them resolved without doing the work. Citizens caught this immediately, gave one stars, and the leaderboard self-corrected.</p>
+    <p>Three: the system was so much faster than the rest of the municipality's processes that it created internal jealousy. We resolved it by making the system mandatory for the relevant departments.</p>
+    <h3>What it cost</h3>
+    <p>Roughly nothing. The LINE bot was built on a free tier. The classification ran on a model API at fractions of a cent per ticket. The dominant cost was the salary of one civil servant, half-time, for six months — and that civil servant was already on payroll.</p>
+    <p>I think about this often when I am told that smart cities are expensive. The most-used smart-city application I have ever helped build was, in cash terms, almost free. Its cost was paid in attention.<span class="endmark"></span></p>
+    <div class="orn"><span>· · ·</span></div>
+  </div>
+</section>
+
+<!-- CHAPTER 7 -->
+<section id="ch-7" class="chapter" data-screen-label="07 Phuket">
+  <div class="chapter__head">
+    <div class="chapter__num">Chapter Seven</div>
+    <h2 class="chapter__title"><em>Phuket</em>, in Forty-Five Minutes</h2>
+    <p class="chapter__sub">The smart bus that did not exist. A digital twin built in a coffee shop. A traffic system that learned to predict.</p>
+  </div>
+  <div class="chapter__body">
+    <p class="dropcap">Phuket is a small island with a very large tourism economy. Two airports' worth of arrivals, a few hundred thousand permanent residents, traffic that has been quietly worsening for fifteen years, and a public transit system that, on the day I was asked to consult, did not really exist.</p>
+    <p>The provincial government wanted a digital twin. The phrase "digital twin," at that moment, meant whatever the most recent vendor pitch had told them it meant. It usually meant a 3D rendering of the island on a wall. I was asked to scope a procurement. I declined to scope a procurement. I built a working prototype instead.</p>
+    <h3>Forty-five minutes</h3>
+    <p>I was in a coffee shop. I had a second-hand laptop. I pulled the public flight-arrival data for Phuket International. I pulled the GPS feed for the existing minibus operators. I wrote a small simulation that showed, on the left, planes landing at the airport, and on the right, buses leaving the airport. The gap between the two — passengers landing, buses available — was the metric I was after.</p>
+    <p>It took about forty-five minutes. It was not pretty. It was clearly a prototype. I sent a screen recording to the relevant person in Phuket's transit department. Within a day, three things happened. First, the prototype was forwarded to the deputy governor. Second, a meeting was scheduled. Third, the meeting was not about whether to build the system. It was about how fast.</p>
+    <h3>What demand-aware means</h3>
+    <p>The buses do not run on a fixed schedule. They run on a demand schedule. When flights are landing, more buses are dispatched to the airport. When the airport is quiet, the buses are repositioned to wherever the social-media chatter and the cellular data show concentrations of foot traffic.</p>
+    <p>Phuket has reported a thirty-percent reduction in airport-area congestion since the system went live. I cannot independently verify the thirty percent. I can verify that the buses, when I have ridden them, are full.</p>
+    <h3>The flood module</h3>
+    <p>The other thing the digital twin became was a flood-warning system. We layered satellite precipitation forecasts on top of the road-network model, and we now produce, for the city's emergency operations center, a forty-eight-hour advance warning of which roads are likely to flood and how deep.</p>
+    <p>Forty-eight hours is enough time to move equipment, warn residents, and pre-position the pumps. The forty-eight-hour warning, by itself, has prevented several million baht of equipment damage that would have been lost in the previous reactive system.</p>
+    <div class="pull">The deliverable was not the rendering. The rendering was the side effect. The deliverable was the decision the data changed.</div>
+    <p>I have stopped writing procurement scopes. I now write prototypes that, if they work, become the scope.<span class="endmark"></span></p>
+    <div class="orn"><span>· · ·</span></div>
+  </div>
+</section>
+
+<!-- CHAPTER 8 -->
+<section id="ch-8" class="chapter" data-screen-label="08 Rayong">
+  <div class="chapter__head">
+    <div class="chapter__num">Chapter Eight</div>
+    <h2 class="chapter__title"><em>Rayong</em>: Four Tiers of Care</h2>
+    <p class="chapter__sub">Non-communicable disease, classified at the household. The free eyeglasses go to the right households. The diapers, too.</p>
+  </div>
+  <div class="chapter__body">
+    <p class="dropcap">Rayong is an industrial province on the eastern seaboard of Thailand, the petrochemical heart of the country. The deputy chief executive at the time was a former engineer. He came to me with a specific frustration: his social-welfare budget was being sprayed across the population with very little intelligence about who actually needed which benefit.</p>
+    <p>Free eyeglasses for senior citizens, distributed by ward without regard to whether the senior citizen could already see. Free adult diapers, distributed by ward without regard to whether the recipient was bedridden or running marathons. The problem was not budget. The problem was targeting.</p>
+    <h3>Four tiers</h3>
+    <p>We classified residents into four tiers: Normal, At-Risk, Disabled, and Bedridden. The classification was done partly by the existing public-health volunteer network, which had been visiting households for decades and had a working knowledge of who was who. AI was the tool that made their data legible.</p>
+    <p>The volunteers had been writing in notebooks. We gave them a simple form, on a tablet, that mirrored the notebook. The structured data fed a classifier. The classifier suggested a tier. The volunteer could override. The override rate in year one was fifteen percent. By year two it was under five percent.</p>
+    <h3>What the tier unlocked</h3>
+    <p>Normal: nothing automatic. At-Risk: free annual screenings and transport vouchers. Disabled: free assistive devices appropriate to the disability, including the eyeglasses we had been spraying randomly before. Bedridden: home telemedicine, monthly nurse visits, free incontinence supplies, caregiver respite.</p>
+    <p>The savings, in misdirected procurement, were between fifteen and twenty percent of the social-welfare line.</p>
+    <h3>The harder problem</h3>
+    <p>The harder problem in Rayong was not the classifier. It was the connectivity. Many of the bedridden tier lived in households where the smartphone belonged to a working-age adult who took it to work each day. Telemedicine on a phone that is not in the house is not telemedicine.</p>
+    <p>The fix was a small dedicated device, basically a tablet locked to two apps, given to the bedridden tier and connected to the local hospital's nursing station. It cost about a hundred dollars per household. Telemedicine adoption in the bedridden tier went from near zero to about sixty percent within six months.</p>
+    <div class="pull">The model is almost always not the bottleneck. The bottleneck is whatever the model assumed about the world that turns out, in this specific village, to be wrong.</div>
+    <p>Over the first two years, the system ran at a net savings to the province. The province now uses the system as the standard intake for any new social-welfare program.<span class="endmark"></span></p>
+    <div class="orn"><span>· · ·</span></div>
+  </div>
+</section>
+
+<!-- CHAPTER 9 -->
+<section id="ch-9" class="chapter" data-screen-label="09 Bangkok">
+  <div class="chapter__head">
+    <div class="chapter__num">Chapter Nine</div>
+    <h2 class="chapter__title">Bangkok at <em>Seven Thousand</em> Cities</h2>
+    <p class="chapter__sub">A national livability index. AI as a research assistant that does not sleep. The dashboard the ministry could not have written.</p>
+  </div>
+  <div class="chapter__body">
+    <p class="dropcap">In late 2024 my agency, depa, was asked to produce a national livability dashboard. The brief was modest in tone and absurd in scope. Cover every district, every municipality, every sub-district in Thailand. Score each on a livability index. Make the score actionable. Do it on a budget that, in any previous decade, would not have funded the data collection for one province.</p>
+    <p>Thailand has roughly seven thousand local administrative units. Until recently, producing a livability index for seven thousand of anything would have required a survey infrastructure that does not exist in this country, or any other country, in 2026.</p>
+    <h3>What the index actually measures</h3>
+    <p>The index has six axes. Mobility, environment, public services, economic vitality, social cohesion, and digital readiness. Each axis aggregates between four and twelve underlying indicators, drawn almost entirely from public data — satellite layers, telecom records anonymized at the ward level, government statistics, social listening, weather.</p>
+    <p>I will not pretend the indicators are perfect. The social cohesion axis leans on social-media sentiment as a proxy and is almost certainly wrong in interesting ways. The mobility axis, by contrast, leans on telecom-derived movement patterns and is very nearly ground truth.</p>
+    <h3>The shape of the work</h3>
+    <p>The shape of the work that produced this index would have been, in 2018, something like a hundred research assistants for two years. The shape of the work in 2026 is six full-time staff for ten months, with AI as the unsleeping intern.</p>
+    <p>The intern's job was data ingestion and harmonization. Different agencies use different geographic codes. One ministry uses 1990-era sub-district names. Another uses the 2017 redistricting. A third uses postal codes. In our pipeline, the reconciliation is automated. The AI reads the source documentation, infers the mapping, flags ambiguity, and asks a human only when it is uncertain.</p>
+    <div class="pull">The intern doesn't sleep. The intern's mistakes are different from a human intern's mistakes, but they are catchable. The intern is six junior researchers at the cost of a coffee subscription.</div>
+    <h3>Where it gets political</h3>
+    <p>An honest book has to admit this part. A national index that ranks seven thousand cities is, immediately and unavoidably, political. We managed this in two ways. First, by being aggressively transparent about methodology — every indicator is documented, every calculation reproducible. Second, by separating the ranking from the action. The dashboard does not lead with "you are 4,237th." It leads with "here are the three things that, given your peers, you could do next."</p>
+    <p>This is not a complete solution to the politics. It does, however, change the conversation from "this index is unfair" to "the index says I should fix my drainage, and you know what, I should fix my drainage."<span class="endmark"></span></p>
+    <div class="orn"><span>· · ·</span></div>
+  </div>
+</section>
+
+<!-- CHAPTER 10 -->
+<section id="ch-10" class="chapter" data-screen-label="10 Aerosol">
+  <div class="chapter__head">
+    <div class="chapter__num">Chapter Ten</div>
+    <h2 class="chapter__title">The <em>Aerosol</em> Map</h2>
+    <p class="chapter__sub">A Middle East war, a satellite layer, and the small case study that gave this practice a name.</p>
+  </div>
+  <div class="chapter__body">
+    <p class="dropcap">I want to close Part Two with the case study that, more than any of the others, taught me what this practice actually is. It is a small case study. The deliverable was a single afternoon's work. But it is the case I tell first when I am asked what ninja innovation means in three minutes or less, because it contains the whole pattern in miniature.</p>
+    <p>The setting was the Israel-Iran flare-up of mid 2025. I was being asked, by colleagues who were planning travel through the region, what the ground situation actually looked like. I did not know. I had no analyst on the ground. I had a laptop and a Claude subscription.</p>
+    <h3>The wrong question</h3>
+    <p>The right question — where is the violence concentrated? — was unanswerable to me. So I asked a wrong question that I could answer: where in the Middle East is there a lot of combustion right now?</p>
+    <p>Combustion produces aerosols. Aerosols are tracked by NASA's MODIS satellites, by JAXA's Himawari, by ESA's Sentinel program. The aerosol layers are public. They are updated multiple times per day. Anyone can query them.</p>
+    <p>I queried. The map lit up. Tehran, dim. The corridor between Israel and southern Lebanon, bright. Gaza, very bright. Industrial corridors near Bandar Abbas, bright in a different pattern, indicating ordinary heavy industry rather than war. Agricultural fires in Egypt, bright but dispersed.</p>
+    <h3>What the map said</h3>
+    <p>The map did not tell me where the violence was. It told me where things were burning, which is a different question. But the overlap, in the case of an active military conflict, is high enough that the map was, for travel-routing purposes, almost as good as the question I had originally wanted to ask. I overlaid flight paths. My colleagues took those routes. They came home.</p>
+    <p>Total time invested: about one afternoon. Total cost: my Claude subscription. Total information value: enough to make a real travel-routing decision affecting several human beings.</p>
+    <div class="pull">The wrong question, asked on purpose, was almost as good as the right question I could not ask. That is the whole pattern.</div>
+    <p>It is not a substitute for real intelligence. It is, however, a real answer where I had none. And in the gap between no information and professional intelligence, where most of us actually live, the proxy is the practice.<span class="endmark"></span></p>
+    <div class="orn"><span>· · ·</span></div>
+  </div>
+</section>
+
+<!-- PART III DIVIDER -->
+<section id="part-3" class="divider" data-screen-label="Part III">
+  <div class="divider__photo" style="background-image:url('assets/photos/DSC02330.jpg')"></div>
+  <div class="divider__content">
+    <p class="divider__part">Part Three</p>
+    <h2 class="divider__title">The <em>Toolkit</em></h2>
+    <p class="divider__sub">The actual stack, the actual incentives, the actual things that go wrong at four in the morning when an agent has been running unsupervised for six hours.</p>
+    <div class="divider__chapters">
+      <div><span>11</span>The Solo Stack</div>
+      <div><span>12</span>Built for Real Life</div>
+      <div><span>13</span>Incentives Beat Instructions</div>
+      <div><span>14</span>If You Can Imagine It</div>
+    </div>
+  </div>
+</section>
+
+<!-- CHAPTER 11 -->
+<section id="ch-11" class="chapter" data-screen-label="11 Solo Stack">
+  <div class="chapter__head">
+    <div class="chapter__num">Chapter Eleven</div>
+    <h2 class="chapter__title">The <em>Solo</em> Stack</h2>
+    <p class="chapter__sub">Subscriptions, agents, audits, and sleep. What one person actually runs, and what it costs.</p>
+  </div>
+  <div class="chapter__body">
+    <p class="dropcap">People ask me, with some regularity, what I actually use. The question is sometimes framed as curiosity and sometimes framed as challenge — as if the answer, if sufficiently cheap, would disprove something. The answer is cheap. That is not a challenge to anyone. It is the point.</p>
+    <p>Here is the actual list. I have not rounded up the costs to make them look more serious. I have not rounded them down to make myself look more frugal. These are the receipts, approximately, as of early 2026.</p>
+    <ul class="stack-list">
+      <li><div class="tool">Claude (Anthropic)<em>Primary AI — coding, research, agents, analysis. The engine for most of the builds in this book.</em></div><div class="cost">$20/mo</div></li>
+      <li><div class="tool">Claude Code<em>Autonomous coding agent in my terminal. Replaces a junior developer for 90% of tasks.</em></div><div class="cost">Usage</div></li>
+      <li><div class="tool">Supabase<em>Database, auth, storage, edge functions. The backend I use for almost every project.</em></div><div class="cost">$25/mo</div></li>
+      <li><div class="tool">GitHub + Cloudflare Pages<em>Version control and deployment. Every project gets a live URL in under two minutes.</em></div><div class="cost">Free</div></li>
+      <li><div class="tool">Mapbox / MapLibre<em>Maps and geospatial rendering. The spatial layer on most dashboards.</em></div><div class="cost">$0–50/mo</div></li>
+      <li><div class="tool">Render<em>Backend hosting for bots, cron jobs, PostGIS databases.</em></div><div class="cost">$25/mo</div></li>
+      <li><div class="tool">NASA / JAXA / ESA APIs<em>Satellite data. Aerosol, vegetation, surface temperature, nighttime lights. Completely free.</em></div><div class="cost">Free</div></li>
+      <li><div class="tool">LINE Messaging API<em>Bot interface for Thai citizen-facing applications. Goes where the users already are.</em></div><div class="cost">Free tier</div></li>
+    </ul>
+    <p>The total for a month in which I am building something serious: between ninety and a hundred and fifty dollars. The total for a quiet month: under fifty.</p>
+    <h3>What this stack replaces</h3>
+    <p>It replaces the infrastructure that, five years ago, would have required: a data engineering team, a cloud architect, a GIS specialist, a backend developer, a database administrator, a DevOps engineer, and a project manager to coordinate them. The combined salary bill for that team, in Bangkok, would be in the range of three hundred thousand dollars a year. My stack costs under two thousand.</p>
+    <p>I am not claiming I produce the same output as that team. I am claiming I produce, on a solo budget, output that a year ago would have required that team. The gap is real and it is closing, not from the team's direction.</p>
+    <h3>The agent layer</h3>
+    <p>The part of the stack that most changed what I could do in the last year is the agent layer — specifically, Claude Code, which runs in my terminal and executes tasks autonomously. I describe a system. I walk away. An hour later there is a working prototype that I did not type.</p>
+    <p>This is not magic. The agent makes mistakes. The mistakes are usually findable. Fixing them is faster than writing from scratch. I now think of my role less as a coder and more as a QA engineer reviewing an agent's output.</p>
+    <h3>What I still do myself</h3>
+    <p>Judgment. Every system in this book required a human to decide what the system was for, what the success criterion was, and when to kill it. AI is very good at executing within a goal and very poor at setting the goal. The goal is still mine.</p>
+    <p>Relationships. No system in this book was adopted without a human conversation. The deputy governor in Phuket, the mayor in Nakhon, the engineer in Rayong — these were real meetings with real people who needed to trust the person behind the prototype, not just the prototype. That trust does not transfer to a bot.</p>
+    <p>And sleep. I am forty-two years old. I sleep eight hours. The agents run while I do.<span class="endmark"></span></p>
+    <div class="orn"><span>· · ·</span></div>
+  </div>
+</section>
+
+<!-- CHAPTER 12 -->
+<section id="ch-12" class="chapter" data-screen-label="12 Real Life">
+  <div class="chapter__head">
+    <div class="chapter__num">Chapter Twelve</div>
+    <h2 class="chapter__title">Built for Real Life, <em>Not Demos</em></h2>
+    <p class="chapter__sub">The thirty-six-button TV remote. Why demos optimize for the wrong person.</p>
+  </div>
+  <div class="chapter__body">
+    <figure class="chapter__photo">
+      <img src="assets/photos/BEN01310.jpg" alt="Workshop session at GITEX 2026" loading="lazy">
+      <figcaption>GITEX 2026 Workshop · Singapore · April 2026</figcaption>
+    </figure>
+    <p class="dropcap">My mother owns a television remote control with thirty-six buttons. She uses four of them. The other thirty-two exist because, at some point in the product development process, someone decided that having thirty-two additional features would make the remote more impressive in a store. It has made the remote unusable in a living room.</p>
+    <p>I think about this remote control every time I am asked to present a smart-city dashboard to a government delegation. The delegation wants the thirty-two buttons. They want the drone integration, the augmented reality layer, the machine learning forecast, the citizen-engagement leaderboard. They want to see the future. I want to show them the four buttons that will actually save them time next Tuesday.</p>
+    <h3>Who the demo optimizes for</h3>
+    <p>A demo is designed for a person who is paying attention, who has been primed to be impressed, and who will not actually use the product. It is designed for the delegation visit, the board meeting, the pitch deck. It is designed for the moment of acquisition, not the moment of use.</p>
+    <p>Real life is different. Real life is the civil servant at nine in the morning who has seventeen browser tabs open, a phone ringing, and a chief who just walked in with an urgent question. Real life is the village health volunteer who is semi-literate and has a phone with forty percent battery. Real life is the bus dispatcher who trained on the old system and has strong opinions about the new one.</p>
+    <p>The system that works for the demo almost never works for real life. The system that works for real life almost never wins the demo. The ninja innovator has to choose.</p>
+    <h3>The design rules I use</h3>
+    <p><strong>One action per screen.</strong> If someone can only do one thing on this screen, what should that one thing be? Every additional option is a friction multiplier.</p>
+    <p><strong>Zero training assumption.</strong> The system should be discoverable without a manual, a training session, or a designated champion. If it requires explanation, it will be explained once and then forgotten.</p>
+    <p><strong>Show the number, not the chart.</strong> A chart is beautiful and almost always requires interpretation. A number requires none. The Phuket transit dashboard has one number at the top: the gap between airport arrivals and available buses, in minutes. That number changes. People check it.</p>
+    <p><strong>Mobile first, always.</strong> Every system I have built that has been actually adopted was adopted on a phone. Not a laptop. Not a kiosk. A phone in a pocket, often with intermittent signal, often with hands that are doing something else.</p>
+    <div class="pull">Design for the confused person at 9am on a Monday, not the attentive delegate on a Wednesday afternoon.</div>
+    <h3>The forty-five-minute rule</h3>
+    <p>There is a version of the Phuket prototype I could have spent six months building. It would have been beautiful. It would have had satellite imagery, animated route overlays, a machine-learning demand forecast, a user management system, role-based access control, and a mobile app for the dispatchers. I spent forty-five minutes building the version that got the deputy governor to call a meeting.</p>
+    <p>The forty-five-minute version had two columns, one number, and a gap. That was it. The gap did the convincing. Everything else was not needed for the conversation, and some of it turned out not to be needed at all.</p>
+    <p>The discipline of the forty-five-minute version is not laziness. It is the refusal to build things before you know they will be used. The features you omit now you can always add later. The features you add now that nobody uses you cannot easily remove — they are owned by someone's expectations.<span class="endmark"></span></p>
+    <div class="orn"><span>· · ·</span></div>
+  </div>
+</section>
+
+<!-- CHAPTER 13 -->
+<section id="ch-13" class="chapter" data-screen-label="13 Incentives">
+  <div class="chapter__head">
+    <div class="chapter__num">Chapter Thirteen</div>
+    <h2 class="chapter__title"><em>Incentives</em> Beat Instructions</h2>
+    <p class="chapter__sub">How citizens promote civil servants. The quiet power of a five-star rating.</p>
+  </div>
+  <div class="chapter__body">
+    <figure class="chapter__photo">
+      <img src="assets/photos/BEN01320.jpg" alt="Innovation workshop at GITEX 2026" loading="lazy">
+      <figcaption>GITEX 2026 · Workshop on citizen-centred innovation · April 2026</figcaption>
+    </figure>
+    <p class="dropcap">There is a standard story about digital transformation in government that goes like this: the system is built, the training is delivered, the manual is written, and then the staff use the old system anyway because the old system is what they know, what they are used to, and what nobody is going to penalize them for.</p>
+    <p>I have watched this story play out, in whole or in part, in almost every government project I have ever been involved in. The system adoption problem is not a technology problem. It is a human problem. You can solve technology problems by improving technology. You cannot solve human problems by improving technology.</p>
+    <h3>Why instructions fail</h3>
+    <p>An instruction tells a person what to do. An incentive tells a person what they will get for doing it. The instruction assumes the person is listening and willing. The incentive assumes the person is rational and self-interested. Of these two assumptions, the second is reliably more accurate.</p>
+    <p>This is not a cynical observation. Self-interest is not the enemy of good government. Self-interest properly channeled is one of the most powerful forces available to a public administrator. The challenge is to align self-interest with the public good, not to suppress it.</p>
+    <p>The Nakhon Si Thammarat system did exactly this. The civil servant who resolved tickets fastest got the most five-star ratings. The civil servant with the most five-star ratings got promoted. The civil servant who wanted to get promoted therefore wanted to resolve tickets fast. Their self-interest was, in this system, identical to the citizen's interest. Nobody had to write a policy about urgency. Urgency was the rational choice.</p>
+    <div class="pull">The bureaucracy used to optimize for visibility to the boss. The right system makes it optimize for visibility to the citizen instead.</div>
+    <h3>Designing the incentive</h3>
+    <p>The incentive that works is specific, observable, and timely. Specific: not "be a good civil servant" but "resolve this ticket before someone else does and get the five-star rating." Observable: the leaderboard is visible to everyone, in real time. Timely: the star goes to the resolver within hours of the citizen's rating, not at the annual performance review.</p>
+    <p>The incentive that fails is vague, delayed, and private. "We value your contribution to the department" is an instruction wearing an incentive's clothes. Nobody has ever resolved a pothole faster because of a generic thank-you email.</p>
+    <h3>Non-monetary incentives</h3>
+    <p>The most powerful incentives in government contexts are usually not money. Money is complicated — it requires HR processes, budget approvals, equity considerations. Non-monetary incentives are simpler and, in many cases, more motivating.</p>
+    <p>Recognition is an incentive. Public, visible recognition — a leaderboard, a badge, a name called out in a meeting — costs nothing and activates something deep in human psychology about status and belonging.</p>
+    <p>Autonomy is an incentive. The staff member who earns the right to handle her own ticket queue without supervisor approval values that autonomy more than a salary increment. The autonomy was earned by the stars. The stars are provided by the citizens. The citizens, quietly, now run the promotion committee.</p>
+    <p>Avoidance is an incentive. Nobody wants to be last on the leaderboard. The fear of the bottom is as motivating as the ambition for the top. In Nakhon, the lowest-ranked staff member in the first quarter had a direct conversation with her supervisor about why. The conversation was not about the leaderboard. It was about whether her caseload was manageable. She was overloaded. The system had surfaced a management problem that nobody had known existed.</p>
+    <p>That is what a well-designed incentive structure does. It does not just change behavior. It reveals the system's actual state.<span class="endmark"></span></p>
+    <div class="orn"><span>· · ·</span></div>
+  </div>
+</section>
+
+<!-- CHAPTER 14 -->
+<section id="ch-14" class="chapter" data-screen-label="14 Imagine It">
+  <div class="chapter__head">
+    <div class="chapter__num">Chapter Fourteen</div>
+    <h2 class="chapter__title">If You Can <em>Imagine</em> It</h2>
+    <p class="chapter__sub">A coda, with cautions. The imagination is now the constraint.</p>
+  </div>
+  <div class="chapter__body">
+    <figure class="chapter__photo">
+      <img src="assets/photos/DSC02350.jpg" alt="GITEX 2026 — the conference" loading="lazy">
+      <figcaption>GITEX 2026 · Where this practice found its name</figcaption>
+    </figure>
+    <p class="dropcap">I want to end with the sentence that got me into trouble on stage in Singapore, because I think it is true and I think it has to come with a caveat that I did not give it that day.</p>
+    <p>The sentence is: <em>if you can imagine it, you can build it.</em></p>
+    <p>I said this in the context of a workshop on public-sector innovation. I meant it as encouragement. I meant it as a description of what has changed in the last two years. The engineering constraint — you need a team, you need a budget, you need a contract — has not disappeared but it has shrunk so dramatically that for most of what a public servant in a middle-income country needs to build, it is no longer the binding constraint. The imagination is the binding constraint. If you can hold a clear enough picture of what you want, the tools to build it are available to you.</p>
+    <h3>The caveat I owe you</h3>
+    <p>After the talk, a young woman from the audience — she was, I learned, a data scientist at a public health ministry — came and said: "You said if we can imagine it we can build it. But my ministry can imagine a system that tracks the movement of citizens who have not consented to being tracked. Can we build that?"</p>
+    <p>The answer is yes. You can build that. The tools are the same tools. The satellite data is the same satellite data. The AI is the same AI. The fact that it is now cheap and fast to build a civic surveillance tool is exactly as true as the fact that it is now cheap and fast to build a pothole-repair tracker.</p>
+    <p>I told her: the question that used to be "can we build this?" has become "should we?" The engineering question has been largely settled. The ethics question is wide open.</p>
+    <div class="pull">The question that used to be "can we build this?" has become "should we?" The constraint has moved from engineering to imagination to ethics. In that order. We are now on step three.</div>
+    <h3>What I trust</h3>
+    <p>I trust the practice I have described in this book because it is cheap enough to fail and cheap enough to stop. The systems I have built have been small enough that no government has had a meaningful interest in capturing them. The LINE bot in Nakhon was built by a civil servant on a government salary. It belongs to the city. If the city turns it off, it turns off. If the city uses it to harass rather than serve citizens, the citizens will give it one star and the leaderboard will tell the story.</p>
+    <p>The incentive structure, if you design it right, is also the accountability structure. Citizens who rate the service become a form of distributed oversight. This is not perfect oversight. But in the countries where this practice is most needed — middle-income governments with overstretched audit capacity and under-resourced civil society — distributed oversight beats no oversight.</p>
+    <h3>The practitioner I am trying to describe</h3>
+    <p>She works in government, or adjacent to it. She has a specific problem she cannot solve through the normal channels because the normal channels are too slow, too expensive, or simply not available. She has a laptop and curiosity and now, after reading this book, a small collection of techniques.</p>
+    <p>She is not a technologist. She is a public servant who is willing to be a little oblique. She does not fight the dragon. She slips past it.</p>
+    <p>She builds something small. She shows it to the mayor. If it works, she makes it bigger. If it does not, she turns it off.</p>
+    <p>She does this quietly, without announcements, without press releases, without waiting for permission. She is the person who, while everyone else was still arguing about the tender, already shipped the prototype.</p>
+    <p>If you can imagine being that person, you can build what she builds.</p>
+    <p>Start Tuesday.<span class="endmark"></span></p>
+    <div class="orn"><span>· · ·</span></div>
+  </div>
+</section>
+
+<!-- APPENDIX A: GLOSSARY -->
+<section id="glossary" class="appendix" data-screen-label="Glossary">
+  <div class="column column--wide">
+    <p class="front-title">Appendix A</p>
+    <h2>Glossary</h2>
+    <ul class="gloss-list">
+      <li><dt>Ninja innovation</dt><dd>The practice of solving real public problems by combining public data, AI, and a sideways question — finding a useful substitute for the data or capability you cannot access through normal channels. Named for the asymmetric, oblique approach: you do not fight the wall, you find the door nobody else noticed.</dd></li>
+      <li><dt>The Four Ps</dt><dd>Purpose, Practical, Proof, People. A diagnostic framework for smart-city projects. A project typically fails at the first P that breaks. Useful for both design and troubleshooting.</dd></li>
+      <li><dt>The vendor trap</dt><dd>The pattern in which cities and governments spend large sums on technology platforms sold by vendors, producing systems that are too complex to use, too expensive to maintain, and too old by the time they ship. The alternative is the flip: build cheap, show first, contract second.</dd></li>
+      <li><dt>The proxy</dt><dd>A substitute data source that answers a question close enough to the question you originally wanted to ask. The aerosol layer as a proxy for conflict intensity. Flight arrivals as a proxy for bus demand. The skill of finding a proxy is the central skill of this practice.</dd></li>
+      <li><dt>Solve first, policy later</dt><dd>The inversion of the traditional policy-then-build order. Build a small working system first. Watch what users do with it. Codify what works into policy. The policy becomes a description rather than a guess.</dd></li>
+      <li><dt>The solo stack</dt><dd>The set of subscription tools a single person uses to build functional civic systems. In 2026: Claude, Supabase, GitHub, Cloudflare Pages, Mapbox, and several free satellite APIs. Total cost under $150/month.</dd></li>
+      <li><dt>Demand-aware transit</dt><dd>A bus or transit system that dispatches vehicles based on real-time demand signals (flight arrivals, social media, cellular movement patterns) rather than a fixed schedule. The Phuket smart bus is the case study.</dd></li>
+      <li><dt>The leaderboard principle</dt><dd>The use of visible, real-time performance ranking to align civil servant self-interest with citizen interest. First deployed in Nakhon Si Thammarat. Stars from citizens accumulate by staff member; stars feed promotion decisions.</dd></li>
+      <li><dt>TOR</dt><dd>Terms of Reference. The procurement document that specifies, in exhaustive detail, what a contracted system shall do. Writing a TOR takes months. A working prototype takes hours. The prototype is the better TOR.</dd></li>
+    </ul>
+  </div>
+</section>
+
+<!-- APPENDIX B: SOURCES -->
+<section id="sources" class="appendix" data-screen-label="Sources">
+  <div class="column column--wide">
+    <p class="front-title">Appendix B</p>
+    <h2>Sources &amp; Notes</h2>
+    <ul class="sources-list">
+      <li><span class="src-tag">Ch. 1</span><span>NASA FIRMS (Fire Information for Resource Management System), worldview.earthdata.nasa.gov. JAXA Himawari real-time imagery. ESA Sentinel-5P TROPOMI aerosol layer. All public-access.</span></li>
+      <li><span class="src-tag">Ch. 3</span><span>Nakhon Si Thammarat Metaverse School case study. depa Thailand internal evaluation report, 2025. Engagement baseline and outcomes documented by the provincial education office.</span></li>
+      <li><span class="src-tag">Ch. 4</span><span>Nakhon Si Thammarat Smart City reporting system. Platform: LINE Messaging API (free tier). Classification: Google Vision API, Anthropic Claude. Ticket data: 40,000+ resolved cases, 2023–2025.</span></li>
+      <li><span class="src-tag">Ch. 5</span><span>The satellite endpoints list is maintained at github.com/nonarkara/global-monitor. Contributions welcome. ACLED data on conflict events (acleddata.com). Open-Meteo for weather (open-meteo.com).</span></li>
+      <li><span class="src-tag">Ch. 6</span><span>Nakhon Si Thammarat response-time figures from municipal records. Subscriber count from LINE platform analytics. Cost figures from depa project documentation.</span></li>
+      <li><span class="src-tag">Ch. 7</span><span>Phuket smart bus system documentation. Congestion reduction figures from Phuket Provincial Administration Organization. Flood warning module uses Copernicus Emergency Management Service precipitation data.</span></li>
+      <li><span class="src-tag">Ch. 8</span><span>Rayong NCD remote-care system. Classification model trained on public health volunteer records. Hardware specification: Android tablet, Rayong Provincial Hospital nursing station integration. Cost savings figures from Rayong PAO annual report.</span></li>
+      <li><span class="src-tag">Ch. 9</span><span>Thailand Smart City Livability Index methodology document (depa, 2025). Six axes, 54 indicators. Geographic boundary reconciliation methodology available on request.</span></li>
+      <li><span class="src-tag">General</span><span>All project costs are approximations based on subscription invoices and are correct as of Q1 2026. Prices change; the principle — that a working prototype costs less than a TOR — does not.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- APPENDIX C: COLOPHON -->
+<section id="colophon" class="colophon" data-screen-label="Colophon">
+  <h3>Colophon</h3>
+  <p>This ebook was typeset in Newsreader (serif), IBM Plex Sans, and IBM Plex Mono. The cover photograph was taken at GITEX 2026, Singapore. The field photographs throughout are from the GITEX workshop sessions, April 2026.</p>
+  <p>All content is based on the author's direct experience. Case study figures have been verified against project documentation. Where figures are approximate, they are noted as such.</p>
+  <p>Non Arkara is Senior Smart City Expert at the Digital Economy Promotion Agency (depa), Thailand. He holds a PhD in Anthropology from Harvard University and degrees from MIT and Oxford.</p>
+  <p>Built with Claude Code &nbsp;·&nbsp; Deployed on Cloudflare Pages &nbsp;·&nbsp; Source data: NASA, JAXA, ESA, Supabase, LINE</p>
+  <p style="margin-top:2rem;font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(243,237,224,.3);">Ed. 1.0 &nbsp;·&nbsp; Bangkok &nbsp;·&nbsp; 2026 &nbsp;·&nbsp; NON·ISM PRESS</p>
+</section>
+
+</main>
+
+<script>
+/* Ninja Innovation — interaction layer */
+(() => {
+  const $ = (s, c=document) => c.querySelector(s);
+  const $$ = (s, c=document) => [...c.querySelectorAll(s)];
+
+  // Reading progress
+  const bar = $('.progress__bar');
+  const onScroll = () => {
+    const h = document.documentElement;
+    const max = h.scrollHeight - h.clientHeight;
+    const pct = max > 0 ? (h.scrollTop / max) * 100 : 0;
+    if (bar) bar.style.width = pct + '%';
+    let activeId = null;
+    $$('section[id]').forEach(s => {
+      const r = s.getBoundingClientRect();
+      if (r.top <= 120 && r.bottom > 120) activeId = s.id;
+    });
+    if (activeId) {
+      $$('.drawer__list a').forEach(a => {
+        a.classList.toggle('active', a.getAttribute('href') === '#' + activeId);
+      });
+    }
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // Drawer
+  const drawer = $('.drawer');
+  const scrim = $('.scrim');
+  const setOpen = v => { drawer.classList.toggle('open', v); scrim.classList.toggle('show', v); };
+  $('#openNav')?.addEventListener('click', () => setOpen(true));
+  $('#closeNav')?.addEventListener('click', () => setOpen(false));
+  scrim?.addEventListener('click', () => setOpen(false));
+  $$('.drawer__list a').forEach(a => a.addEventListener('click', () => setOpen(false)));
+
+  // Keyboard nav
+  const chapterIds = $$('section[id^="ch-"], section[id^="part-"]').map(s => s.id);
+  const currentIdx = () => {
+    let idx = 0;
+    chapterIds.forEach((id, i) => {
+      const el = document.getElementById(id);
+      if (el && el.getBoundingClientRect().top <= 120) idx = i;
+    });
+    return idx;
+  };
+  const goTo = idx => {
+    idx = Math.max(0, Math.min(chapterIds.length - 1, idx));
+    document.getElementById(chapterIds[idx])?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+  document.addEventListener('keydown', e => {
+    if (e.target.matches('input, textarea')) return;
+    if (e.key === 'j' || e.key === 'ArrowRight') { e.preventDefault(); goTo(currentIdx() + 1); }
+    else if (e.key === 'k' || e.key === 'ArrowLeft') { e.preventDefault(); goTo(currentIdx() - 1); }
+    else if (e.key === 'Escape') setOpen(false);
+    else if (e.key === '?' || (e.key === '/' && e.shiftKey)) setOpen(!drawer.classList.contains('open'));
+  });
+
+  // Sidenote scroll
+  $$('.sn-marker').forEach(m => {
+    m.addEventListener('click', e => {
+      e.preventDefault();
+      const note = document.getElementById('sn-' + m.dataset.sn);
+      note?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+  });
+})();
+</script>
+</body>
+</html>
