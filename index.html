@@ -312,6 +312,118 @@ body{margin:0;font-family:var(--serif);font-weight:400;font-size:19px;line-heigh
   .chapter{page-break-before:always;padding:0;}
   .pull,.field,.codeblock{break-inside:avoid;}
 }
+
+/* ════════ LIBRARY FOOTER ════════ */
+.library {
+  --lib-paper: var(--paper, #f3ede0); --lib-ink: var(--ink, #1a1612); --lib-accent: var(--vermilion, #b8392a);
+  padding: 64px 6vw 80px;
+  background: var(--lib-paper);
+  border-top: 1px solid rgba(0,0,0,.12);
+  position: relative;
+  z-index: 2;
+}
+.lib-head {
+  font-family: "JetBrains Mono", "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: var(--lib-accent);
+  margin: 0 0 6px;
+  text-align: center;
+}
+.lib-sub {
+  font-family: "Cormorant Garamond", "EB Garamond", Georgia, serif;
+  font-style: italic;
+  font-size: 16px;
+  color: var(--lib-ink);
+  opacity: .65;
+  margin: 0 auto 36px;
+  text-align: center;
+  max-width: 50ch;
+}
+.lib-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+@media (max-width: 900px) {
+  .lib-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 540px) {
+  .lib-grid { grid-template-columns: 1fr; gap: 12px; }
+  .library { padding: 48px 5vw 60px; }
+}
+.lib-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 22px 20px 20px;
+  background: rgba(255,255,255,.45);
+  border: 1px solid rgba(0,0,0,.10);
+  text-decoration: none;
+  color: var(--lib-ink);
+  position: relative;
+  transition: transform .35s cubic-bezier(.2,.8,.25,1), border-color .25s, background .25s, box-shadow .35s;
+  min-height: 160px;
+}
+.lib-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--lib-accent);
+  background: rgba(255,255,255,.85);
+  box-shadow: 0 18px 40px -22px rgba(0,0,0,.35);
+}
+.lib-card.current {
+  background: var(--lib-accent);
+  color: white;
+  border-color: var(--lib-accent);
+  pointer-events: none;
+}
+.lib-card.current .lib-num { color: rgba(255,255,255,.65); }
+.lib-card.current .lib-title { color: white; }
+.lib-card.current .lib-tag { color: rgba(255,255,255,.78); }
+
+.lib-num {
+  font-family: "Cormorant Garamond", "EB Garamond", Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 13px;
+  letter-spacing: .15em;
+  color: var(--lib-accent);
+  text-transform: uppercase;
+}
+.lib-title {
+  font-family: "Cormorant Garamond", "EB Garamond", Georgia, serif;
+  font-size: 22px;
+  line-height: 1.18;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--lib-ink);
+  margin: 4px 0 auto;
+}
+.lib-tag {
+  font-family: "Cormorant Garamond", "EB Garamond", Georgia, serif;
+  font-style: italic;
+  font-size: 14px;
+  color: var(--lib-ink);
+  opacity: .6;
+  line-height: 1.35;
+}
+.lib-card.current .lib-tag { opacity: .9; }
+.lib-card .lib-here {
+  position: absolute;
+  top: 14px; right: 14px;
+  font-family: "JetBrains Mono", "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 9px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.85);
+  background: rgba(255,255,255,.18);
+  padding: 4px 8px;
+  border-radius: 0;
+}
+
 </style>
 </head>
 <body>
@@ -1311,5 +1423,38 @@ body{margin:0;font-family:var(--serif);font-weight:400;font-size:19px;line-heigh
   }
 })();
 </script>
+
+<!-- ════════ THE LIBRARY — all four books, current highlighted ════════ -->
+<aside class="library" aria-label="Other books by Non Arkaraprasertkul">
+  <p class="lib-head">Non · The Library</p>
+  <p class="lib-sub">Four small books, four different shapes. Read in any order. Each opens in a new tab.</p>
+  <div class="lib-grid">
+    <a href="https://100days.nonarkara.org" class="lib-card" target="_blank" rel="noopener">
+      <span class="lib-num">I</span>
+      <span class="lib-title">100 Days of Solitude</span>
+      <span class="lib-tag">An illustrated travelogue</span>
+      
+    </a>
+    <a href="https://ninja.nonarkara.org" class="lib-card current" >
+      <span class="lib-num">II</span>
+      <span class="lib-title">Ninja Innovation</span>
+      <span class="lib-tag">A people-centric practice for the AI era</span>
+      <span class="lib-here">You are here</span>
+    </a>
+    <a href="https://slowdown.nonarkara.org" class="lib-card" target="_blank" rel="noopener">
+      <span class="lib-num">III</span>
+      <span class="lib-title">The Things You Can See Only When You Slow Down</span>
+      <span class="lib-tag">A meditation in ten movements</span>
+      
+    </a>
+    <a href="https://mean.nonarkara.org" class="lib-card" target="_blank" rel="noopener">
+      <span class="lib-num">IV</span>
+      <span class="lib-title">What I Mean When I Say</span>
+      <span class="lib-tag">A small dictionary</span>
+      
+    </a>
+  </div>
+</aside>
+
 </body>
 </html>
