@@ -3,6 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0f0d0a">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' fill='%23f3ede0'/><circle cx='32' cy='32' r='15' fill='none' stroke='%23b8392a' stroke-width='4'/><circle cx='32' cy='32' r='3.5' fill='%23b8392a'/></svg>">
+<meta property="og:type" content="book">
+<meta property="og:title" content="Ninja Innovation — Non Arkara">
+<meta property="og:description" content="How a public servant replaces million-dollar platforms with curiosity, public data, and a second-hand laptop.">
+<meta property="og:url" content="https://ninja.nonarkara.org/">
+<meta property="og:image" content="https://ninja.nonarkara.org/assets/photos/photo-cover.jpg">
+<meta name="twitter:card" content="summary_large_image">
 <title>Ninja Innovation — Non Arkara</title>
 <meta name="description" content="An ebook by Non Arkara, PhD. How a public servant replaces million-dollar platforms with people-centric AI.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -290,10 +298,14 @@ body{margin:0;font-family:var(--serif);font-weight:400;font-size:19px;line-heigh
 /* Mobile */
 @media(max-width:720px){
   body{font-size:17.5px;}
-  .topbar{padding:0 1rem;}
+  .topbar{padding:0 1rem;height:3.6rem;}
+  .topbar__btn{min-height:44px;padding:.7rem .6rem;}
   .topbar__brand{font-size:10px;}
   .cover{padding:4rem 1.5rem 2rem;}
   .cover__mark{display:none;}
+  .drawer__head{align-items:center;}
+  .drawer__close{min-width:44px;min-height:44px;display:grid;place-items:center;}
+  .drawer__list a{padding:.75rem 1.8rem;}
   .chapter{padding:5rem 1.2rem 4rem;}
   .chapter__head{margin-bottom:2.5rem;}
   .dropcap::first-letter{font-size:4rem;}
@@ -305,12 +317,21 @@ body{margin:0;font-family:var(--serif);font-weight:400;font-size:19px;line-heigh
   .sources-list li{grid-template-columns:1fr;}
   .stack-list li{grid-template-columns:1fr;}
   .stack-list .cost{text-align:left;}
+  .cover__photo{background-image:url('assets/photos/photo-cover-800.jpg')!important;}
+  .divider__photo[style*="photo-part1"]{background-image:url('assets/photos/photo-part1-800.jpg')!important;}
+  .divider__photo[style*="photo-part2"]{background-image:url('assets/photos/photo-part2-800.jpg')!important;}
+  .divider__photo[style*="photo-part3"]{background-image:url('assets/photos/photo-part3-800.jpg')!important;}
 }
 @media print{
   .topbar,.progress,.drawer,.scrim,.cover__hint{display:none!important;}
   body{background:white;color:black;font-size:11pt;}
   .chapter{page-break-before:always;padding:0;}
   .pull,.field,.codeblock{break-inside:avoid;}
+}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto;}
+  .cover__hint{animation:none;}
+  .drawer,.scrim,.continue-toast,.progress__bar{transition:none;}
 }
 
 /* ════════ LIBRARY FOOTER ════════ */
