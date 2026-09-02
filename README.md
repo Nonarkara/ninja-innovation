@@ -70,7 +70,7 @@ Use this work in that spirit:
 - **Read the fine print of the data you use.** Public does not mean unbounded. Satellite agencies, messaging APIs, and open records each have terms. The book’s claim is that the fine print is often more permissive than procurement assumes — not that terms do not exist.
 - **Do not treat this README, or the book, as a license to skip law.** Procurement exists in part as a discipline against corruption. The flip removes that discipline from the *front* of the process by making the prototype almost free. It does not repeal procurement, privacy, or criminal law.
 
-If you fork the reader, keep it a reader. Do not smuggle secrets, tokens, or target lists into a public tree. This repo contains none, and none are required to read the book.
+If you fork the reader, keep it a reader. Do not add credentials, target lists, or private keys to a public tree. None are required to read the book.
 
 ## How it works
 
