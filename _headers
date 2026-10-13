@@ -8,3 +8,21 @@
 
 /assets/*
   Cache-Control: public, max-age=86400
+
+# Security headers for every route. Cache-Control rules above are unchanged.
+# Content-Security-Policy-Report-Only is report-only pending review and is not enforced.
+# Resource origins below are taken from index.html, not guessed:
+#   style-src / connect-src: https://fonts.googleapis.com (stylesheet and preconnect)
+#   font-src / connect-src: https://fonts.gstatic.com (preconnect crossorigin for that stylesheet)
+#   script-src: https://static.cloudflareinsights.com (beacon.min.js)
+#   img-src data: is the inline SVG favicon. 'self' is same-origin photos and the page.
+#   style-src 'unsafe-inline' matches the page <style> block and style attributes.
+#   script-src hash is sha256 of the inline reading script in index.html.
+# Sister-site links (100days, slowdown, mean, dao, ninja.nonarkara.org) are navigations, not subresources.
+/*
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Content-Security-Policy-Report-Only: default-src 'self'; script-src 'self' 'sha256-7D4W9tZxvTGTUSDn11AVrQAxBtsSjEaS7RVhdkffqY4=' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'
